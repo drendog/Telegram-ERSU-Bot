@@ -1,3 +1,6 @@
+package ERSUBot.ERSUBot;
+import test.PdfExtracterTest;
+import test.YmlResolverTest;
 
 public class StartApplication {
 

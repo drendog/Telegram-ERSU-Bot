@@ -1,3 +1,4 @@
+package test;
 import bot.YmlResolver;
 
 public class YmlResolverTest {

@@ -1,15 +1,15 @@
+package test;
 import java.io.File;
-import java.io.IOException;
-
-import parser.ParserMenu;
+import java.io.IOException; 
 import parser.PdfExtracter;
-
+import parser.ParserMenu;
+	
 public class PdfExtracterTest {
 	PdfExtracter p;
 	public PdfExtracterTest() {
 		p = new PdfExtracter(new File("data/menu.pdf"));
 	}
-	
+
 	public void testExtracter() {
 		try {
 			System.out.println(p.getText());
