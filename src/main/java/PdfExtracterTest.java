@@ -23,7 +23,8 @@ public class PdfExtracterTest {
 		//p.tokenizer();
 		//System.out.println(p.searchDay());
 		//p.getMenu();
-		p.getMenuToday();
-		System.out.println(p.getCena());
+		//p.getMenuToday();
+		//System.out.println(p.getCena());
+		System.out.println(p.getMenu());
 	}
 }

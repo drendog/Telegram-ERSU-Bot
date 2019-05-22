@@ -3,6 +3,7 @@ package parser;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,9 +47,6 @@ public class ParserMenu {
 		String s = searchDay().split("CONTORNI")[2];
 		String[] splitS = s.split("(?=\\p{Lu})");
 		
-		for(String t : splitS) {
-			System.out.println(t);
-		}
 		return splitS;
 	}
 	
@@ -111,7 +109,9 @@ public class ParserMenu {
 	}
 	
 	
-	/*public String getMenu() {
-		
-	}*/
+	public String getMenu() {
+		if(Calendar.getInstance().get(Calendar.HOUR) < 15)
+			return getPranzo();
+		return getCena();
+	}
 }
