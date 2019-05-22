@@ -8,7 +8,7 @@ import org.yaml.snakeyaml.Yaml;
 
 public class YmlResolver {
 	private Yaml yml;
-	private final String PATH = "/home/davide/eclipse-workspace/ERSUBot/src/config/settings.yml";
+	private final String PATH = "src/config/settings.yml";
 	public YmlResolver() {
 		yml = new Yaml();
 	}
