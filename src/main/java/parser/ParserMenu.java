@@ -88,16 +88,16 @@ public class ParserMenu {
 		//Primi Piatti
 		menuPranzo += "PRIMI PIATTI\n";
 		menuPranzo += piatti[4] + "\n";
-		menuPranzo += piatti[7] + "\n";
-		menuPranzo += piatti[13] + "\n";
-		menuPranzo += piatti[19] + "\n";
+		menuPranzo += piatti[10] + "\n";
+		menuPranzo += piatti[16] + "\n";
+		menuPranzo += piatti[22] + "\n";
 		
 		//Secondi Piatti
 		menuPranzo += "\nSECONDI PIATTI\n";
-		menuPranzo += piatti[2] + "\n";
-		menuPranzo += piatti[8] + "\n";
-		menuPranzo += piatti[14] + "\n";
-		menuPranzo += piatti[20] + "\n";
+		menuPranzo += piatti[5] + "\n";
+		menuPranzo += piatti[11] + "\n";
+		menuPranzo += piatti[17] + "\n";
+		menuPranzo += piatti[23] + "\n";
 		menuPranzo += piatti[26] + "\n";
 		
 		//Contorni
@@ -106,7 +106,7 @@ public class ParserMenu {
 		menuPranzo += piatti[9] + "\n";
 		menuPranzo += piatti[16] + "\n";
 		menuPranzo += piatti[21] + "\n";
-	
+		
 		return menuPranzo;
 	}
 	

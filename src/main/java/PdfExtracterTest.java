@@ -24,6 +24,6 @@ public class PdfExtracterTest {
 		//System.out.println(p.searchDay());
 		//p.getMenu();
 		p.getMenuToday();
-		System.out.println(p.getPranzo());
+		System.out.println(p.getCena());
 	}
 }
