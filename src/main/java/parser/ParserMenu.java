@@ -50,7 +50,7 @@ public class ParserMenu {
 		return splitS;
 	}
 	
-	public String getPranzo() {
+	private String getPranzo() {
 		String menuPranzo = "🍽MENÙ CENA: \n";
 		String[] piatti = getMenuToday();
 		
@@ -79,7 +79,7 @@ public class ParserMenu {
 		return menuPranzo;
 	}
 	
-	public String getCena() {
+	private String getCena() {
 		String menuPranzo = "🍽MENÙ CENA: \n";
 		String[] piatti = getMenuToday();
 		

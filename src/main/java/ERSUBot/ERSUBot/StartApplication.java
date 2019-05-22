@@ -1,16 +1,29 @@
 package ERSUBot.ERSUBot;
-import test.PdfExtracterTest;
-import test.YmlResolverTest;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import bot.Bot;
 
 public class StartApplication {
 
 	public static void main(String[] args) {
-		YmlResolverTest t1 = new YmlResolverTest();
-		PdfExtracterTest t2 = new PdfExtracterTest();
-		t1.testToken();
-		t1.testBotUsername();
+		//YmlResolverTest t1 = new YmlResolverTest();
+		//PdfExtracterTest t2 = new PdfExtracterTest();
+		//t1.testToken();
+		//t1.testBotUsername();
 		//t2.testExtracter();
-		t2.testParser();
-	}
+		//t2.testParser();
+		
+		ApiContextInitializer.init();
+
+        TelegramBotsApi botsApi = new TelegramBotsApi();
+
+        try {
+            botsApi.registerBot(new Bot());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
