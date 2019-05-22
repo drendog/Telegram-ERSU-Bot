@@ -1,7 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 
-import scraper.PdfExtracter;
+import parser.ParserMenu;
+import parser.PdfExtracter;
 
 public class PdfExtracterTest {
 	PdfExtracter p;
@@ -11,9 +12,16 @@ public class PdfExtracterTest {
 	
 	public void testExtracter() {
 		try {
-			p.printLines();
+			System.out.println(p.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void testParser() {
+		ParserMenu p = new ParserMenu(new File("data/menu.pdf")) ;
+		//p.tokenizer();
+		//System.out.println(p.searchDay());
+		//p.getMenu();
 	}
 }

@@ -1,4 +1,4 @@
-package scraper;
+package parser;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,20 +22,12 @@ public class PdfExtracter {
 		}
 	}
 	
-	private String getText() throws IOException{
+	public String getText() throws IOException{
         PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
         pdfTextStripperByArea.setSortByPosition(Boolean.TRUE);
 
         PDFTextStripper pdfTextStripper = new PDFTextStripper();
 
         return pdfTextStripper.getText(pdf);
-	}
-	
-	private String[] SplitText() throws IOException{
-		return getText().split("\\r?\\n");
-	}
-	
-	public void printLines() throws IOException{
-		System.out.println(getText());
 	}
 }

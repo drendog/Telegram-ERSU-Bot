@@ -6,7 +6,8 @@ public class StartApplication {
 		PdfExtracterTest t2 = new PdfExtracterTest();
 		t1.testToken();
 		t1.testBotUsername();
-		t2.testExtracter();
+		//t2.testExtracter();
+		t2.testParser();
 	}
 
 }
