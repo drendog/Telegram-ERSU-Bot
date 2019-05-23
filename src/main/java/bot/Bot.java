@@ -42,5 +42,20 @@ public class Bot extends TelegramLongPollingBot{
 	public String getBotToken() {
 		return YmlResolver.getInstance().getToken();
 	}
+	
+	private void sendMessageToChannel(String message) throws TelegramApiException {
+		SendMessage sd = new SendMessage();
+		sd.enableMarkdown(true);
+		sd.setChatId(YmlResolver.getInstance().getChannelUsername());
+		
+		sd.setText(message);
+		sd.enableMarkdown(true);
+
+        execute(sd);
+	}
+	
+	public void sendMenuToChannel() throws TelegramApiException {
+		sendMessageToChannel(p.getMenu());
+	}
 
 }

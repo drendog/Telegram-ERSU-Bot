@@ -20,7 +20,9 @@ public class StartApplication {
         TelegramBotsApi botsApi = new TelegramBotsApi();
 
         try {
-            botsApi.registerBot(new Bot());
+        	Bot b = new Bot();
+            botsApi.registerBot(b);
+            b.sendMenuToChannel();
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
