@@ -3,14 +3,8 @@ import bot.YmlResolver;
 
 public class YmlResolverTest {
 
-	YmlResolver y;
-	
-	public YmlResolverTest() {
-		y = new YmlResolver();
-	}
-
 	public void testToken() {
-		if(y.getToken().equals("pippo"))
+		if(YmlResolver.getInstance().getToken().equals("pippo"))
 			System.out.println("OK - Token");
 		else
 			System.out.println("FAILED - Token");
@@ -18,7 +12,7 @@ public class YmlResolverTest {
 	}
 	
 	public void testBotUsername() {
-		if(y.getBotUsername().equals("ERSUBot"))
+		if(YmlResolver.getInstance().getBotUsername().equals("ERSUBot"))
 			System.out.println("OK - BotUsername");
 		else
 			System.out.println("FAILED - BotUsername");

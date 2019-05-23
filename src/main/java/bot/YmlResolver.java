@@ -9,15 +9,20 @@ import org.yaml.snakeyaml.Yaml;
 public class YmlResolver {
 	private Yaml yml;
 	private final String PATH = "src/config/settings.yml";
-	public YmlResolver() {
+	private static YmlResolver instance = new YmlResolver();
+	
+	private YmlResolver() {
 		yml = new Yaml();
+	}
+	
+	public static YmlResolver getInstance() {
+		return instance;
 	}
 	
 	private FileInputStream getInputStream() {
 		try {
 			return new FileInputStream(PATH);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -33,5 +38,9 @@ public class YmlResolver {
 	
 	public String getBotUsername() {
 		return (String) getMap().get("BotUsername");
+	}
+	
+	public String getChannelUsername() {
+		return (String) getMap().get("mensa_channel");
 	}
 }

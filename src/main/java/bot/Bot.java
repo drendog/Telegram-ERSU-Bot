@@ -29,14 +29,18 @@ public class Bot extends TelegramLongPollingBot{
 	    }
 	}
 	
+	public String getChannelUsername() {
+		return YmlResolver.getInstance().getChannelUsername();
+	}
+	
 	
 	public String getBotUsername() {
-		return new YmlResolver().getBotUsername();
+		return YmlResolver.getInstance().getBotUsername();
 	}
 
 	@Override
 	public String getBotToken() {
-		return new YmlResolver().getToken();
+		return YmlResolver.getInstance().getToken();
 	}
 
 }
