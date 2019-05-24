@@ -1,3 +1,5 @@
 token: ""
 BotUsername: ""
 mensa_channel: '@channelusername'
+path_avvisi: "path completo del file che contiene gli avvisi"
+news_chanel: '@channelnews'

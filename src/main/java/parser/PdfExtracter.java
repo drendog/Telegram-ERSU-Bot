@@ -8,26 +8,29 @@ import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 
-
 public class PdfExtracter {
-	private PDDocument pdf;
-	
-	public PdfExtracter(File f) {
-		try {
-			pdf = PDDocument.load(f);
-		} catch (InvalidPasswordException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public String getText() throws IOException{
+
+    private PDDocument pdf;
+
+    public PdfExtracter(File f) {
+        try {
+            pdf = PDDocument.load(f);
+        } catch (InvalidPasswordException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getText() throws IOException {
         PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
         pdfTextStripperByArea.setSortByPosition(Boolean.TRUE);
 
+        
         PDFTextStripper pdfTextStripper = new PDFTextStripper();
-
-        return pdfTextStripper.getText(pdf);
-	}
+        
+        String text = pdfTextStripper.getText(pdf);
+        pdf.close();
+        return text;
+    }
 }
