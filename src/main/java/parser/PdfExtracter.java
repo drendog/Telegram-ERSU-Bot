@@ -2,6 +2,8 @@ package parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
@@ -16,21 +18,40 @@ public class PdfExtracter {
         try {
             pdf = PDDocument.load(f);
         } catch (InvalidPasswordException e) {
-            e.printStackTrace();
+            org.apache.log4j.Logger.getLogger(PdfExtracter.class).error("Errore file PDF menu con password", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            org.apache.log4j.Logger.getLogger(PdfExtracter.class).error("Errore apertura file PDF menu", e);
         }
     }
 
-    public String getText() throws IOException {
-        PDFTextStripperByArea pdfTextStripperByArea = new PDFTextStripperByArea();
+    public String getText() {
+        PDFTextStripperByArea pdfTextStripperByArea = null;
+        try {
+            pdfTextStripperByArea = new PDFTextStripperByArea();
+        } catch (IOException ex) {
+            org.apache.log4j.Logger.getLogger(PdfExtracter.class).error("Errore PDFTextStripperByArea", ex);
+        }
         pdfTextStripperByArea.setSortByPosition(Boolean.TRUE);
 
         
-        PDFTextStripper pdfTextStripper = new PDFTextStripper();
+        PDFTextStripper pdfTextStripper = null;
+        try {
+            pdfTextStripper = new PDFTextStripper();
+        } catch (IOException ex) {
+            org.apache.log4j.Logger.getLogger(PdfExtracter.class).error("Errore PDFTextStripper", ex);
+        }
         
-        String text = pdfTextStripper.getText(pdf);
-        pdf.close();
+        String text = null;
+        try {
+            text = pdfTextStripper.getText(pdf);
+        } catch (IOException ex) {
+            org.apache.log4j.Logger.getLogger(PdfExtracter.class).error("Errore get text pdf menu", ex);
+        }
+        try {
+            pdf.close();
+        } catch (IOException ex) {
+            org.apache.log4j.Logger.getLogger(PdfExtracter.class).error("Errore chiusura file PDF menu", ex);
+        }
         return text;
     }
 }

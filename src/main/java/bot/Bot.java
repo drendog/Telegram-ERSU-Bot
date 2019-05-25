@@ -3,6 +3,8 @@ package bot;
 import command.MenuCommand;
 import command.ReportCommand;
 import java.io.File;
+import org.apache.log4j.Logger;
+
 
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -14,7 +16,7 @@ import parser.ParserMenu;
 
 public class Bot extends TelegramLongPollingCommandBot {
 
-    private final String PATH = "data/menu.pdf";
+    private final String PATH = YmlResolver.getInstance().getValue("path_mensa");
     private ParserMenu p = new ParserMenu(new File(PATH));
 
     public Bot(String botUsername) {
@@ -23,35 +25,12 @@ public class Bot extends TelegramLongPollingCommandBot {
         super.register(new MenuCommand(p));
     }
 
-    
-    /*
-    public void onUpdateReceived(Update update) {
-        // We check if the update has a message and the message has text
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            if (update.getMessage().getText().contains("/menu")) {
-                SendMessage message = new SendMessage()
-                        .setChatId(update.getMessage().getChatId())
-                        .setText(p.getMenu());
-                try {
-                    execute(message);
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }*/
-    /*
-    public String getBotUsername() {
-        return YmlResolver.getInstance().getValue("BotUsername");
-    }
-    */
-
     @Override
     public String getBotToken() {
         return YmlResolver.getInstance().getValue("token");
     }
 
-    private void sendMessageToChannel(String message) throws TelegramApiException {
+    private void sendMessageToChannel(String message){ 
         SendMessage sd = new SendMessage();
         sd.enableMarkdown(true);
         sd.setChatId(YmlResolver.getInstance().getValue("mensa_channel"));
@@ -59,10 +38,14 @@ public class Bot extends TelegramLongPollingCommandBot {
         sd.setText(message);
         sd.enableMarkdown(true);
 
-        execute(sd);
+        try {
+            execute(sd);
+        } catch (TelegramApiException ex) {
+            Logger.getLogger(Bot.class).error("Errore invio messaggio al canale",ex);
+        }
     }
 
-    public void sendMenuToChannel() throws TelegramApiException {
+    public void sendMenuToChannel() {
         sendMessageToChannel(p.getMenu());
     }
 
@@ -80,6 +63,7 @@ public class Bot extends TelegramLongPollingCommandBot {
                 try {
                     execute(echoMessage);
                 } catch (TelegramApiException e) {
+                    Logger.getLogger(Bot.class).error("Errore invio messaggio");
                 }
             }
         }

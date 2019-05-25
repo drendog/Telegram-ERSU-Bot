@@ -13,12 +13,7 @@ public class ParserMenu {
     private String text;
 
     public ParserMenu(File f) {
-        try {
-            text = new PdfExtracter(f).getText();
-        } catch (IOException e) {
-            e.printStackTrace();
-            text = "";
-        }
+        text = new PdfExtracter(f).getText();
     }
 
     private Map<String, String> createMap() {

@@ -1,8 +1,6 @@
 
 package command;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -29,7 +27,7 @@ public class MenuCommand extends BotCommand {
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {
-            Logger.getLogger(MenuCommand.class.getName()).log(Level.SEVERE, null, ex);
+            org.apache.log4j.Logger.getLogger(MenuCommand.class).error("Errore invio comando menu", ex);
         }
     }
     

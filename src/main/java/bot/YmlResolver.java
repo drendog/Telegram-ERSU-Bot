@@ -2,14 +2,18 @@ package bot;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.yaml.snakeyaml.Yaml;
 
 public class YmlResolver {
 
     private final Yaml yml;
-    private final String PATH = "src/config/settings.yml";
+    private final String PATH = "classes/settings.yaml";
     private static final YmlResolver instance = new YmlResolver();
 
     private YmlResolver() {
@@ -36,5 +40,5 @@ public class YmlResolver {
     public String getValue(String key) {
         return (String) getMap().get(key);
     }
-
+    
 }

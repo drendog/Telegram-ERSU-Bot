@@ -1,8 +1,6 @@
 package command;
 
 import bot.YmlResolver;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -33,7 +31,7 @@ public class ReportCommand extends BotCommand {
         try {
             as.execute(adminChat);
         } catch (TelegramApiException ex) {
-            Logger.getLogger(ReportCommand.class.getName()).log(Level.SEVERE, null, ex);
+            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio segnalazione admin chat", ex);
         }
         SendMessage userChat = 
                 new SendMessage()
@@ -42,7 +40,7 @@ public class ReportCommand extends BotCommand {
         try {
             as.execute(userChat);
         } catch (TelegramApiException ex) {
-            Logger.getLogger(ReportCommand.class.getName()).log(Level.SEVERE, null, ex);
+            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio OK segnalazione utente", ex);
         }
     }
     

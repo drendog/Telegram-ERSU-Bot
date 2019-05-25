@@ -14,11 +14,9 @@ public class PdfExtracterTest {
     }
 
     public void testExtracter() {
-        try {
+        
             System.out.println(p.getText());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        
     }
 
     public void testParser() {

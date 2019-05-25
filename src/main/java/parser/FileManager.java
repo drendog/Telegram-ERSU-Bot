@@ -5,15 +5,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileManager {
+    
     private static final String PATH = YmlResolver.getInstance().getValue("path_avvisi");
     
     public static String read() {
         try {
             return new String(Files.readAllBytes(Paths.get(PATH)));
         } catch (IOException ex) {
-            System.err.println("Errore lettura file news");
+            try {
+                Files.write(Paths.get(PATH), "".getBytes(), StandardOpenOption.CREATE);
+            } catch (IOException ex1) {
+                org.apache.log4j.Logger.getLogger(FileManager.class).error("Errore creazione file", ex);
+            }
+            org.apache.log4j.Logger.getLogger(FileManager.class).error("Errore lettura file", ex);
         }
         return null;
     }
@@ -21,7 +29,7 @@ public class FileManager {
         try {
             Files.write(Paths.get(PATH), "\n".concat(str).getBytes(), StandardOpenOption.APPEND);
         } catch (IOException ex) {
-            System.err.println("Errore scrittura file news");
+            org.apache.log4j.Logger.getLogger(FileManager.class).error("Errore scrittura file", ex);
         }
     }
     

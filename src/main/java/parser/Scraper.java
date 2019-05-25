@@ -13,15 +13,18 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Scraper extends TimerTask {
 
+    private final static String URL =  YmlResolver.getInstance().getValue("url_ersu");
+    
+    private final static String NEWS_CHANNEL = YmlResolver.getInstance().getValue("news_channel");
     private Document doc;
     private Bot bot;
 
     public Scraper(Bot bot) {
         this.bot = bot;
         try {
-            doc = Jsoup.connect("http://www.ersucatania.gov.it/blog/").get();
+            doc = Jsoup.connect(URL).get();
         } catch (IOException ex) {
-            System.err.println("Connessione sito ersu fallita");
+            org.apache.log4j.Logger.getLogger(Scraper.class).error("Connessione host ERSU non riuscita", ex);
         }
     }
 
@@ -34,7 +37,7 @@ public class Scraper extends TimerTask {
                 bot.execute(
                         new SendMessage()
                         .enableHtml(true)
-                        .setChatId(YmlResolver.getInstance().getValue("news_channel"))
+                        .setChatId(YmlResolver.getInstance().getValue(NEWS_CHANNEL))
                         .setText(getNews(link))
                 );
             }
@@ -76,7 +79,7 @@ public class Scraper extends TimerTask {
         try {
             checkNews();
         } catch (TelegramApiException ex) {
-            ex.printStackTrace();
+            org.apache.log4j.Logger.getLogger(Scraper.class).error("Errore Check News", ex);
         }
     }
 
