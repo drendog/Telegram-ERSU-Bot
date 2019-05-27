@@ -2,6 +2,7 @@ package bot;
 
 import command.MenuCommand;
 import command.ReportCommand;
+import command.UfficioErsuCommand;
 import java.io.File;
 import org.apache.log4j.Logger;
 
@@ -23,6 +24,7 @@ public class Bot extends TelegramLongPollingCommandBot {
         super(botUsername);
         super.register(new ReportCommand());
         super.register(new MenuCommand(p));
+        super.register(new UfficioErsuCommand());
     }
 
     @Override
