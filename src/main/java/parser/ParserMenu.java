@@ -48,18 +48,18 @@ public class ParserMenu {
     }
 
     private String getPranzo() {
-        String menuPranzo = "🍽MENÙ CENA: \n";
+        String menuPranzo = "<b>🍽 MENÙ CENA:</b> \n";
         String[] piatti = getMenuToday();
 
         //Primi Piatti
-        menuPranzo += "PRIMI PIATTI\n";
+        menuPranzo += "<b>PRIMI PIATTI</b>\n";
         menuPranzo += piatti[1] + "\n";
         menuPranzo += piatti[7] + "\n";
         menuPranzo += piatti[13] + "\n";
         menuPranzo += piatti[19] + "\n";
 
         //Secondi Piatti
-        menuPranzo += "\nSECONDI PIATTI\n";
+        menuPranzo += "\n<b>SECONDI PIATTI</b>\n";
         menuPranzo += piatti[2] + "\n";
         menuPranzo += piatti[8] + "\n";
         menuPranzo += piatti[14] + "\n";
@@ -67,7 +67,7 @@ public class ParserMenu {
         menuPranzo += piatti[26] + "\n";
 
         //Contorni
-        menuPranzo += "CONTORNI\n";
+        menuPranzo += "<b>CONTORNI</b>\n";
         menuPranzo += piatti[3] + "\n";
         menuPranzo += piatti[9] + "\n";
         menuPranzo += piatti[16] + "\n";
@@ -77,18 +77,18 @@ public class ParserMenu {
     }
 
     private String getCena() {
-        String menuPranzo = "🍽MENÙ CENA: \n";
+        String menuPranzo = "<b>🍽 MENÙ CENA:</b> \n";
         String[] piatti = getMenuToday();
 
         //Primi Piatti
-        menuPranzo += "PRIMI PIATTI\n";
+        menuPranzo += "<b>PRIMI PIATTI</b>\n";
         menuPranzo += piatti[4] + "\n";
         menuPranzo += piatti[10] + "\n";
         menuPranzo += piatti[16] + "\n";
         menuPranzo += piatti[22] + "\n";
 
         //Secondi Piatti
-        menuPranzo += "\nSECONDI PIATTI\n";
+        menuPranzo += "\n<b>SECONDI PIATTI</b>\n";
         menuPranzo += piatti[5] + "\n";
         menuPranzo += piatti[11] + "\n";
         menuPranzo += piatti[17] + "\n";
@@ -96,7 +96,7 @@ public class ParserMenu {
         menuPranzo += piatti[26] + "\n";
 
         //Contorni
-        menuPranzo += "CONTORNI\n";
+        menuPranzo += "<b>CONTORNI</b>\n";
         menuPranzo += piatti[3] + "\n";
         menuPranzo += piatti[9] + "\n";
         menuPranzo += piatti[16] + "\n";
