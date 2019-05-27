@@ -1,5 +1,6 @@
 package parser;
 
+import bot.YmlResolver;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -36,7 +37,7 @@ public class MenuDownloader extends TimerTask  {
         try {
             readableByteChannel = Channels.newChannel(getLinkPdf().openStream());
             FileOutputStream fileOutputStream = null;
-            fileOutputStream = new FileOutputStream("menu.pdf");
+            fileOutputStream = new FileOutputStream(YmlResolver.getInstance().getValue("path_mensa"));
             FileChannel fileChannel = fileOutputStream.getChannel();
             fileOutputStream.getChannel()
                     .transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
