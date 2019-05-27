@@ -92,7 +92,8 @@
                     <outputDirectory>target/resources</outputDirectory>
                     <resources>
                         <resource>
-                            <directory></directory>
+                            <filtering>true</filtering>
+                            <directory>src/main/resources</directory>
                         </resource>
                     </resources>
                 </configuration>

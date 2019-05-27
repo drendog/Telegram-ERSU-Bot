@@ -4,7 +4,7 @@ admin_chat: ''
 
 
 mensa_channel: '@channelusername'
-news_chanel: '@channelnews'
+news_channel: '@channelnews'
 
 url_ersu: 'http://www.ersucatania.gov.it/blog/'
 

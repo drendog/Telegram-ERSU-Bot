@@ -23,7 +23,7 @@ public class StartApplication {
         
         MenuDownloader.download(); // download menu mensa pdf 
         ApiContextInitializer.init();
-        PropertyConfigurator.configure(YmlResolver.getInstance().getValue("log4j.properties"));
+        PropertyConfigurator.configure(YmlResolver.getInstance().getValue("log4j_properties"));
         
         Logger.getLogger(StartApplication.class).info("Start Application");
         

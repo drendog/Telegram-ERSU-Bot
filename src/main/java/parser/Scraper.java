@@ -37,7 +37,7 @@ public class Scraper extends TimerTask {
                 bot.execute(
                         new SendMessage()
                         .enableHtml(true)
-                        .setChatId(YmlResolver.getInstance().getValue(NEWS_CHANNEL))
+                        .setChatId(NEWS_CHANNEL)
                         .setText(getNews(link))
                 );
             }
