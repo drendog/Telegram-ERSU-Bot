@@ -1,7 +1,7 @@
 package parser;
 
 import java.io.File;
-import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,9 +11,11 @@ import java.util.Map;
 public class ParserMenu {
 
     private String text;
+    private SimpleDateFormat format;
 
     public ParserMenu(File f) {
         text = new PdfExtracter(f).getText();
+        format = new SimpleDateFormat("dd.MM.yyyy");
     }
 
     private Map<String, String> createMap() {
@@ -28,6 +30,30 @@ public class ParserMenu {
         dayMap.put("dom", "DOMENICA");
 
         return dayMap;
+    }
+
+    public Date getStartDateMenu() {
+        String tmp = text.split("DAL")[1].replace("AL", "").replace("PRANZO", "").split(" ")[1];
+
+        try {
+            Date start = format.parse(tmp);
+            return start;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Date getEndDateMenu() {
+        String tmp = text.split("DAL")[1].replace("AL", "").replace("PRANZO", "").split(" ")[3];
+        
+        try {
+            Date end = format.parse(tmp);
+            return end;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private String searchDay() {
@@ -105,10 +131,25 @@ public class ParserMenu {
         return menuPranzo;
     }
 
+    private boolean MenuDateisOk(){
+        Date now = new Date(System.currentTimeMillis());
+
+        if(now.after(getStartDateMenu()) && now.before(getEndDateMenu()))
+            return true;
+        
+        return false;
+    }
+
     public String getMenu() {
-        if (Calendar.getInstance().get(Calendar.HOUR) < 15) {
-            return getPranzo();
+        if(MenuDateisOk()){
+            if (Calendar.getInstance().get(Calendar.HOUR) < 15){
+                return getPranzo();
+            }
+            else{
+                return getCena();
+            }
         }
-        return getCena();
+        else
+            return "Menù mensa non disponibile perché non ancora pubblicato sul Sito ERSU Catania.";
     }
 }
