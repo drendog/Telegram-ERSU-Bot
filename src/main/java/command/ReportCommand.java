@@ -18,7 +18,7 @@ public class ReportCommand extends BotCommand {
     
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
-        if (strings[0] == null) {
+        if (strings.length == 0) {
             noParam(as,chat);
             return; 
         }
