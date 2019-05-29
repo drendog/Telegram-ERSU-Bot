@@ -67,21 +67,16 @@ public class Bot extends TelegramLongPollingCommandBot {
     @Override
     public void processNonCommandUpdate(Update update) {
         if (update.hasMessage() && update.getMessage().isUserMessage()) {
-            Message message = update.getMessage();
-            onKeyboardCommands(update.getMessage());
+            Message message = update.getMessage(); 
             if (message.hasText()) {
-                SendMessage echoMessage = new SendMessage()
-                .setChatId(message.getChatId())
-                .setText("Questo messaggio non mi comanda nulla: " + message.getText()
-                + " \nScegli tra queste opzioni: ");
-
-                try {
-                    execute(echoMessage);
-                } catch (TelegramApiException e) {
-                    Logger.getLogger(Bot.class).error("Errore invio messaggio");
-                }
+                SendMessage msg = new SendMessage()
+                        .setChatId(message.getChatId())
+                        .setText("I comandi che puoi utilizzare sono quelli riportati in basso");
             }
+            onKeyboardCommands(message);
+            
         }
+        
     }
     
     protected void onKeyboardCommands(Message message)  {
@@ -90,6 +85,13 @@ public class Bot extends TelegramLongPollingCommandBot {
             ReplyKeyboardMarkup rkm = generateRKM();
 
             sndMsg.setReplyMarkup(rkm);
+
+            if (message.getText().equals("Ufficio ERSU Catania 📚")) 
+                key(message, "ufficioersu");
+            if (message.getText().equals("Menù mensa  🍽")) 
+                key(message,"menu");
+            if (message.getText().equals("Help ❔")) 
+                key(message,"help");
             sndMsg.setText("Seleziona un comando o digita /help");
             if (message.getText().equals("Ufficio ERSU Catania 📚")) 
                 key(message, "ufficioersu");
@@ -99,12 +101,17 @@ public class Bot extends TelegramLongPollingCommandBot {
                 key(message,"help");
             if (message.getText().equals("Segnalazioni Rappresentanti 📬")) 
                 sndMsg.setText("Usa il comando /report <inserisci qui la segnalazione>");
-            
-            try { 
-                execute(sndMsg);
-            } catch (TelegramApiException ex) {
-                //Logger 
+
+            sndMsg.setText("\n\nMenù dei comandi in basso: ");
+            if (message.getText().equals("Segnalazioni Rappresentanti  📬")) {
+                sndMsg.setText("Usa il comando /report <inserisci qui la segnalazione>");
+                try { 
+                    execute(sndMsg);
+                } catch (TelegramApiException ex) {
+                    //Logger 
+                }
             }
+            
         }
     }
 
