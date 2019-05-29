@@ -91,13 +91,13 @@ public class Bot extends TelegramLongPollingCommandBot {
 
             sndMsg.setReplyMarkup(rkm);
             sndMsg.setText("Seleziona un comando o digita /help");
-            if (message.getText().equals("Ufficio ERSU Catania :books:")) 
+            if (message.getText().equals("Ufficio ERSU Catania 📚")) 
                 key(message, "ufficioersu");
-            if (message.getText().equals("Menù mensa :fork_and_knife:")) 
+            if (message.getText().equals("Menù mensa 🍽")) 
                 key(message,"menu");
-            if (message.getText().equals("Help :question:")) 
+            if (message.getText().equals("Help ❔")) 
                 key(message,"help");
-            if (message.getText().equals("Segnalazioni Rappresentanti :mailbox_with_mail:")) 
+            if (message.getText().equals("Segnalazioni Rappresentanti 📬")) 
                 sndMsg.setText("Usa il comando /report <inserisci qui la segnalazione>");
             
             try { 
@@ -120,11 +120,11 @@ public class Bot extends TelegramLongPollingCommandBot {
         ReplyKeyboardMarkup rkm = new ReplyKeyboardMarkup();
         List<KeyboardRow> commands = new ArrayList<KeyboardRow>(); 
         KeyboardRow firstRow = new KeyboardRow();
-        firstRow.add("Menù mensa :fork_and_knife:");
-        firstRow.add("Ufficio ERSU Catania :books:");
+        firstRow.add("Menù mensa 🍽");
+        firstRow.add("Ufficio ERSU Catania 📚");
         KeyboardRow secondRow = new KeyboardRow();
-        secondRow.add("Segnalazioni Rappresentanti :mailbox_with_mail:");
-        secondRow.add("Help :question:"); 
+        secondRow.add("Segnalazioni Rappresentanti 📬");
+        secondRow.add("Help ❔"); 
         commands.add(firstRow);
         commands.add(secondRow);
         rkm.setResizeKeyboard(true);
