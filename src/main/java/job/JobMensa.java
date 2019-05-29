@@ -24,10 +24,12 @@ public class JobMensa extends TimerTask {
 
     @Override
     public void run() {
+        String textMenu = p.getMenu(); 
+        if (textMenu.contains("mensa non disponibile")) return; 
         try {
             SendMessage message = new SendMessage()
                     .setChatId(YmlResolver.getInstance().getValue("mensa_channel"))
-                    .setText(p.getMenu())
+                    .setText(textMenu)
                     .enableHtml(true);
             bot.execute(message);
         } catch (TelegramApiException ex) {
