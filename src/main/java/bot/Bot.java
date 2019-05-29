@@ -94,12 +94,8 @@ public class Bot extends TelegramLongPollingCommandBot {
                 key(message, "menu");
                 return; 
             }
-            if (message.getText().equals("Ufficio ERSU Catania 📚")) {
-                key(message, "ufficio");
-                return; 
-            }
             if (message.getText().equals("Help ❔")) {
-                key(message, "ufficio");
+                key(message, "help");
                 return; 
             }
             sndMsg.setText("Seleziona un comando dal menù\n");
