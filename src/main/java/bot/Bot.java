@@ -86,30 +86,30 @@ public class Bot extends TelegramLongPollingCommandBot {
 
             sndMsg.setReplyMarkup(rkm);
 
-            if (message.getText().equals("Ufficio ERSU Catania 📚")) 
+            if (message.getText().equals("Ufficio ERSU Catania 📚")) {
                 key(message, "ufficioersu");
-            if (message.getText().equals("Menù mensa  🍽")) 
-                key(message,"menu");
-            if (message.getText().equals("Help ❔")) 
-                key(message,"help");
-            sndMsg.setText("Seleziona un comando o digita /help");
-            if (message.getText().equals("Ufficio ERSU Catania 📚")) 
-                key(message, "ufficioersu");
-            if (message.getText().equals("Menù mensa 🍽")) 
-                key(message,"menu");
-            if (message.getText().equals("Help ❔")) 
-                key(message,"help");
-            if (message.getText().equals("Segnalazioni Rappresentanti 📬")) 
+                return; 
+            }
+            if (message.getText().equals("Menù mensa 🍽")) {
+                key(message, "menu");
+                return; 
+            }
+            if (message.getText().equals("Ufficio ERSU Catania 📚")) {
+                key(message, "ufficio");
+                return; 
+            }
+            if (message.getText().equals("Help ❔")) {
+                key(message, "ufficio");
+                return; 
+            }
+            sndMsg.setText("Seleziona un comando dal menù\n");
+            if (message.getText().equals("Segnalazioni Rappresentanti  📬")) 
                 sndMsg.setText("Usa il comando /report <inserisci qui la segnalazione>");
-
-            sndMsg.setText("\n\nMenù dei comandi in basso: ");
-            if (message.getText().equals("Segnalazioni Rappresentanti  📬")) {
-                sndMsg.setText("Usa il comando /report <inserisci qui la segnalazione>");
-                try { 
-                    execute(sndMsg);
-                } catch (TelegramApiException ex) {
-                    //Logger 
-                }
+    
+            try { 
+                execute(sndMsg);
+            } catch (TelegramApiException ex) {
+                //Logger 
             }
             
         }
@@ -123,7 +123,7 @@ public class Bot extends TelegramLongPollingCommandBot {
     }
    
     
-    private ReplyKeyboardMarkup generateRKM() {
+    public static ReplyKeyboardMarkup generateRKM() {
         ReplyKeyboardMarkup rkm = new ReplyKeyboardMarkup();
         List<KeyboardRow> commands = new ArrayList<KeyboardRow>(); 
         KeyboardRow firstRow = new KeyboardRow();

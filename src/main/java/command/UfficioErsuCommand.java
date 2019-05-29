@@ -23,7 +23,7 @@ public class UfficioErsuCommand extends BotCommand {
                         .setParseMode(ParseMode.HTML)
                         .setChatId(chat.getId().toString())
                         .setText(text);
-
+        if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {

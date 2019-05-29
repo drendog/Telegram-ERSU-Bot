@@ -18,10 +18,11 @@ public class ReportCommand extends BotCommand {
     
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
-        if (strings.length == 0) {
+        if (strings[0] == null) {
             noParam(as,chat);
             return; 
         }
+        
         String buildStr = new String(); 
         for (String str : strings) {
             buildStr += str + " ";

@@ -25,7 +25,7 @@ public class HelpCommand extends BotCommand {
                         .setChatId(chat.getId().toString())
                         .setParseMode(ParseMode.HTML)
                         .setText(text);
-        
+        if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {
