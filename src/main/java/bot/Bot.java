@@ -9,7 +9,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
@@ -20,7 +19,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -39,11 +37,9 @@ public class Bot extends TelegramLongPollingCommandBot {
         super.register(new StartCommand()); // 3
         super.register(new HelpCommand()); // 4
         commands = super.getRegisteredCommands().stream().collect(Collectors.toList());
-        
-        
-        
-    }
 
+    }
+    
     @Override
     public String getBotToken() {
         return YmlResolver.getInstance().getValue("token");
@@ -70,10 +66,9 @@ public class Bot extends TelegramLongPollingCommandBot {
 
     @Override
     public void processNonCommandUpdate(Update update) {
-
-        if (update.hasMessage()) {
+        if (update.hasMessage() && update.getMessage().isUserMessage()) {
             Message message = update.getMessage();
-
+            onKeyboardCommands(update.getMessage());
             if (message.hasText()) {
                 SendMessage echoMessage = new SendMessage()
                 .setChatId(message.getChatId())
