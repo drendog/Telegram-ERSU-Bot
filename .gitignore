@@ -5,4 +5,3 @@
 .project
 .settings/
 target/
-src/main/resources/config/settings.yaml

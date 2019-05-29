@@ -43,7 +43,7 @@ public class ReportCommand extends BotCommand {
         SendMessage userChat = 
                 new SendMessage()
                 .setChatId(chat.getId().toString())
-                .setText("Segnalazione inviata");
+                .setText("La tua segnalazione è stata inviata, uno dei rappresentanti ti risponderà appena possibile");
         try {
             as.execute(userChat);
         } catch (TelegramApiException ex) {
@@ -55,8 +55,7 @@ public class ReportCommand extends BotCommand {
         SendMessage message = new SendMessage()
                 .setChatId(chat.getId())
                 .setText("Comando report errato. \n"
-                        + "/report <b>testo della segnalazione</b>")
-                .enableHtml(true);
+                    + "Per inviare una richiesta o una segnalazione ai Rappresentanti ERSU scrivi il comando /report <inserisci qui la segnalazione>");
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {

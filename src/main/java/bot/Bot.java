@@ -100,7 +100,7 @@ public class Bot extends TelegramLongPollingCommandBot {
             }
             sndMsg.setText("Seleziona un comando dal menù\n");
             if (message.getText().equals("Segnalazioni Rappresentanti 📬")) 
-                sndMsg.setText("Usa il comando /report <inserisci qui la segnalazione>");
+                sndMsg.setText("Per inviare una richiesta o una segnalazione ai Rappresentanti ERSU scrivi il comando /report <inserisci qui la segnalazione>.");
     
             try { 
                 execute(sndMsg);
