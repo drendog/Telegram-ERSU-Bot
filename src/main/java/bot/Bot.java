@@ -6,13 +6,22 @@ import command.ReportCommand;
 import command.StartCommand;
 import command.UfficioErsuCommand;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
 
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
+import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import parser.ParserMenu;
@@ -21,14 +30,18 @@ public class Bot extends TelegramLongPollingCommandBot {
 
     private final String PATH = YmlResolver.getInstance().getValue("path_mensa");
     private ParserMenu p = new ParserMenu(new File(PATH));
-
+    private List<IBotCommand> commands;
     public Bot(String botUsername) {
         super(botUsername);
-        super.register(new ReportCommand());
-        super.register(new MenuCommand(p));
-        super.register(new UfficioErsuCommand());
-        super.register(new StartCommand());
-        super.register(new HelpCommand());
+        super.register(new ReportCommand()); // 0
+        super.register(new MenuCommand(p)); // 1
+        super.register(new UfficioErsuCommand()); // 2
+        super.register(new StartCommand()); // 3
+        super.register(new HelpCommand()); // 4
+        commands = super.getRegisteredCommands().stream().collect(Collectors.toList());
+        
+        
+        
     }
 
     @Override
@@ -64,7 +77,8 @@ public class Bot extends TelegramLongPollingCommandBot {
             if (message.hasText()) {
                 SendMessage echoMessage = new SendMessage()
                 .setChatId(message.getChatId())
-                .setText("Questo messaggio non mi comanda nulla: \n" + message.getText());
+                .setText("Questo messaggio non mi comanda nulla: " + message.getText()
+                + " \nScegli tra queste opzioni: ");
 
                 try {
                     execute(echoMessage);
@@ -74,4 +88,55 @@ public class Bot extends TelegramLongPollingCommandBot {
             }
         }
     }
+    
+    protected void onKeyboardCommands(Message message)  {
+        SendMessage sndMsg = new SendMessage().setChatId(message.getChatId());
+        if (message.isUserMessage()) {
+            ReplyKeyboardMarkup rkm = generateRKM();
+
+            sndMsg.setReplyMarkup(rkm);
+            sndMsg.setText("Seleziona un comando o digita /help");
+            if (message.getText().equals("Ufficio ERSU Catania :books:")) 
+                key(message, "ufficioersu");
+            if (message.getText().equals("Menù mensa :fork_and_knife:")) 
+                key(message,"menu");
+            if (message.getText().equals("Help :question:")) 
+                key(message,"help");
+            if (message.getText().equals("Segnalazioni Rappresentanti :mailbox_with_mail:")) 
+                sndMsg.setText("Usa il comando /report <inserisci qui la segnalazione>");
+            
+            try { 
+                execute(sndMsg);
+            } catch (TelegramApiException ex) {
+                //Logger 
+            }
+        }
+    }
+
+    private void key(Message message, String identifier) {
+        Optional<IBotCommand> ufficioErsuCommand =
+                commands.stream().filter(x -> x.getCommandIdentifier().equals(identifier)).findFirst();
+        if (ufficioErsuCommand.isPresent())
+            ufficioErsuCommand.get().processMessage(this, message, new String[0]);
+    }
+   
+    
+    private ReplyKeyboardMarkup generateRKM() {
+        ReplyKeyboardMarkup rkm = new ReplyKeyboardMarkup();
+        List<KeyboardRow> commands = new ArrayList<KeyboardRow>(); 
+        KeyboardRow firstRow = new KeyboardRow();
+        firstRow.add("Menù mensa :fork_and_knife:");
+        firstRow.add("Ufficio ERSU Catania :books:");
+        KeyboardRow secondRow = new KeyboardRow();
+        secondRow.add("Segnalazioni Rappresentanti :mailbox_with_mail:");
+        secondRow.add("Help :question:"); 
+        commands.add(firstRow);
+        commands.add(secondRow);
+        rkm.setResizeKeyboard(true);
+        rkm.setOneTimeKeyboard(true);
+        rkm.setKeyboard(commands);
+        rkm.setSelective(true);
+        return rkm; 
+    }
+    
 }
