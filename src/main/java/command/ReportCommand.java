@@ -1,6 +1,8 @@
 package command;
 
 import bot.YmlResolver;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -16,6 +18,7 @@ public class ReportCommand extends BotCommand {
     
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
+        if (strings.length == 0) noParam(as,chat);
         String buildStr = new String(); 
         for (String str : strings) {
             buildStr += str + " ";
@@ -44,4 +47,17 @@ public class ReportCommand extends BotCommand {
         }
     }
     
+    private void noParam(AbsSender as, Chat chat) {
+        SendMessage message = new SendMessage()
+                .setChatId(chat.getId())
+                .setText("Comando report errato. \n"
+                        + "/report <b>testo della segnalazione</b>")
+                .enableHtml(true);
+        try {
+            as.execute(message);
+        } catch (TelegramApiException ex) {
+            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
+        }
+                
+    }
 }
