@@ -13,7 +13,7 @@ import org.yaml.snakeyaml.Yaml;
 public class YmlResolver {
 
     private final Yaml yml;
-    private final String PATH = "resources/config/settings.yaml";
+    private final String PATH = "../resources/config/settings.yml";
     private static final YmlResolver instance = new YmlResolver();
 
     private YmlResolver() {
