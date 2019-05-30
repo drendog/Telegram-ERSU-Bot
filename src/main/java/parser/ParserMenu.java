@@ -33,6 +33,7 @@ public class ParserMenu {
     }
 
     public Date getStartDateMenu() {
+        String text = this.text.toUpperCase();
         String tmp = text.split("DAL")[1].replace("AL", "").replace("PRANZO", "").split(" ")[1];
 
         try {
@@ -45,6 +46,7 @@ public class ParserMenu {
     }
     
     public Date getEndDateMenu() {
+        String text = this.text.toUpperCase();
         String tmp = text.split("DAL")[1].replace("AL", "").replace("PRANZO", "").split(" ")[3];
         
         try {
