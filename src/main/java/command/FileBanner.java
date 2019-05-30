@@ -45,19 +45,19 @@ public class FileBanner {
         }
     }
     
-    public static List<String> getBanned() {
-        String fileContent =  read(); 
-        StringTokenizer tok =  new StringTokenizer(fileContent);
+    private static List<String> getBanned() {
+        StringTokenizer tok =  new StringTokenizer(read());
         
         return strTokenToList(tok); 
         
     }
-    public static boolean isPresent(User user) {
+    public static boolean isPresent(String userId) {
         Optional<String> userBanned = getBanned().stream()
-                .filter(x -> x.equals(user.getId().toString()))
+                .filter(x -> x.equals(userId.toString()))
                 .findAny();
         return userBanned.isPresent();
     }
+    
     private static List<String> strTokenToList(StringTokenizer token) {
         List<String> list = new ArrayList<String>(); 
         while (token.hasMoreElements()) 

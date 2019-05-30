@@ -29,20 +29,17 @@ public class BanCommand extends BotCommand {
             noParam(as, chat);
             return;
         }
-        Integer id;
+        Long id;
         try {
-            id = Integer.parseInt(strings[0]);
+            id = Long.parseLong(strings[0]);
         } catch (Exception e) {
             noParam(as, chat);
             return;
         }
-
-        List<String> usersBanned = FileBanner.getBanned();
-
         
         String text = "Utente già bannato.";
-        if (!FileBanner.isPresent(user)) {
-            FileBanner.write(id.toString());
+        if (!FileBanner.isPresent(""+id)) {
+            FileBanner.write(""+id);
             text = "Utente {" + id + "} bannato";
         }
         try {

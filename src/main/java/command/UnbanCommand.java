@@ -44,12 +44,9 @@ public class UnbanCommand extends BotCommand{
             noParam(as, chat);
             return;
         }
-
-        List<String> usersBanned = FileBanner.getBanned();
-
         
         String text = "Utente non è bannato.";
-        if (FileBanner.isPresent(user)) {
+        if (FileBanner.isPresent(""+id)) {
             FileBanner.remove(id.toString());
             text = "Utente {" + id + "} unbannato";
         }
