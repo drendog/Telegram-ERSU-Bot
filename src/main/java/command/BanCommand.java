@@ -18,10 +18,14 @@ public class BanCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
-
+        if  (user.getId().toString().equals(chat.getId().toString())) {
+            System.out.println("Chat == User pls");
+            return; 
+        }
         if (!chat.getId().toString().equals(YmlResolver.getInstance().getValue("admin_chat"))) {
             return;
         }
+        
         if (strings.length == 0) {
             noParam(as, chat);
             return;
@@ -36,11 +40,9 @@ public class BanCommand extends BotCommand {
 
         List<String> usersBanned = FileBanner.getBanned();
 
-        Optional<String> userBanned = usersBanned.stream()
-                .filter(x -> x.equals(id.toString()))
-                .findAny();
+        
         String text = "Utente già bannato.";
-        if (!userBanned.isPresent()) {
+        if (FileBanner.isPresent(user)) {
             FileBanner.write(id.toString());
             text = "Utente {" + id + "} bannato";
         }
@@ -58,7 +60,7 @@ public class BanCommand extends BotCommand {
     private void noParam(AbsSender as, Chat chat) {
         SendMessage message = new SendMessage()
                 .setChatId(chat.getId())
-                .setText("Comando ban errato. \n"
+                .setText("Comando ban errato oppure non hai inserito un ID utente. \n"
                         + "/ban ID_UTENTE");
         try {
             as.execute(message);

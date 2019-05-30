@@ -32,7 +32,7 @@ public class UfficioErsuCommand extends BotCommand {
     }
 
     public String getText() {
-        String text = "<b>ERSU Catania - Ufficio Tesserini</b>\n";
+        String text = "<b>ERSU Catania</b>\n";
         text += "Sede della Cittadella (accanto l'ingresso della Casa dello Studente)\n\n";
         text += "🕑 <b>Orari</b>:\n";
         text += "Martedì-Giovedì dalle 9:00 alle 12:30\n\n";

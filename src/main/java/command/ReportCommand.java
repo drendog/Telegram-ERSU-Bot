@@ -18,6 +18,9 @@ public class ReportCommand extends BotCommand {
     
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
+        if (FileBanner.isPresent(user)) {
+            youBanned(as,chat);
+        }
         if (strings.length == 0)  {
             noParam(as,chat);
             return; 
@@ -28,7 +31,7 @@ public class ReportCommand extends BotCommand {
             buildStr += str + " ";
         }
         boolean usernameFlag = true; // Ha il nickname
-        String usernameSender = chat.getUserName(); 
+        String usernameSender = user.getUserName(); 
         if (usernameSender == null || usernameSender.isEmpty()) {
             usernameSender = user.getFirstName() + " " + user.getLastName(); 
             usernameFlag = false; // Non ha il nickname
@@ -36,7 +39,7 @@ public class ReportCommand extends BotCommand {
         
         else usernameSender = "@"+usernameSender; 
         StringBuilder msgBuilder = new StringBuilder("Segnalazione da ").append(usernameSender);
-        msgBuilder.append("\n{id: "+user.getId()+"}");
+        msgBuilder.append("\n{id: ").append(user.getId()).append("}");
         msgBuilder.append("\n").append(buildStr);
         
         SendMessage adminChat = new SendMessage()
@@ -69,7 +72,16 @@ public class ReportCommand extends BotCommand {
             as.execute(message);
         } catch (TelegramApiException ex) {
             org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
-        }
-                
+        }        
+    }
+    private void youBanned(AbsSender as, Chat chat) {
+        SendMessage message = new SendMessage()
+                .setChatId(chat.getId())
+                .setText("Sei stato bandito per uso improprio del comando /report."); 
+        try {
+            as.execute(message);
+        } catch (TelegramApiException ex) {
+            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
+        }        
     }
 }
