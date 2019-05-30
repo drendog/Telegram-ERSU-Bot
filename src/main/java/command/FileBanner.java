@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringTokenizer;
+import org.telegram.telegrambots.meta.api.objects.User;
 
 
 public class FileBanner {
@@ -42,7 +44,12 @@ public class FileBanner {
         return strTokenToList(tok); 
         
     }
-    
+    public static boolean isPresent(User user) {
+        Optional<String> userBanned = getBanned().stream()
+                .filter(x -> x.equals(user.getId().toString()))
+                .findAny();
+        return userBanned.isPresent();
+    }
     private static List<String> strTokenToList(StringTokenizer token) {
         List<String> list = new ArrayList<String>(); 
         while (token.hasMoreElements()) 
