@@ -12,7 +12,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class BanCommand extends BotCommand {
 
-    public BanCommand(String commandIdentifier, String description) {
+    public BanCommand() {
         super("ban", "Ban comando report");
     }
 
