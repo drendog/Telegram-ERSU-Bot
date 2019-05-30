@@ -27,9 +27,15 @@ public class ReportCommand extends BotCommand {
         for (String str : strings) {
             buildStr += str + " ";
         }
-        String usernameSender = chat.getUserName();
-
-        StringBuilder msgBuilder = new StringBuilder("Segnalazione da @").append(usernameSender);
+        boolean usernameFlag = true; // Ha il nickname
+        String usernameSender = chat.getUserName(); 
+        if (usernameSender == null || usernameSender.isEmpty()) {
+            usernameSender = user.getFirstName() + " " + user.getLastName(); 
+            usernameFlag = false; // Non ha il nickname
+        }
+        
+        else usernameSender = "@"+usernameSender; 
+        StringBuilder msgBuilder = new StringBuilder("Segnalazione da ").append(usernameSender);
         msgBuilder.append("\n").append(buildStr);
         
         SendMessage adminChat = new SendMessage()
@@ -44,6 +50,8 @@ public class ReportCommand extends BotCommand {
                 new SendMessage()
                 .setChatId(chat.getId().toString())
                 .setText("La tua segnalazione è stata inviata, uno dei rappresentanti ti risponderà appena possibile");
+        if (!usernameFlag)
+            userChat.setText("La tua segnalazione è stata inviata, ma non sarà possibile ricontattarti perché non hai un nickname."); 
         try {
             as.execute(userChat);
         } catch (TelegramApiException ex) {
