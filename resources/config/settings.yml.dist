@@ -8,7 +8,7 @@ news_channel: '@channelnews'
 
 url_ersu: 'http://www.ersucatania.gov.it/blog/'
 
-path_avvisi: "resources/data/avvisi.txt"
-path_mensa: "resources/data/menu.pdf"
-log4j_properties: "resources/config/log4j.properties"
+path_avvisi: "../resources/data/avvisi.txt"
+path_mensa: "../resources/data/menu.pdf"
+log4j_properties: "../resources/config/log4j.properties"
 
