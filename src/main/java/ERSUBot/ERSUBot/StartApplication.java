@@ -23,7 +23,7 @@ public class StartApplication {
     public static void main(String[] args) {
 
         ApiContextInitializer.init();
-        PropertyConfigurator.configure(YmlResolver.getInstance().getValue("log4j_properties"));
+        PropertyConfigurator.configure(YmlResolver.getInstance().getValue("log4j.properties"));
         
         Logger.getLogger(StartApplication.class).info("Start Application");
         
