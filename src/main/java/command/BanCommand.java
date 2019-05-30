@@ -19,7 +19,6 @@ public class BanCommand extends BotCommand {
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
         if  (user.getId().toString().equals(chat.getId().toString())) {
-            System.out.println("Chat == User pls");
             return; 
         }
         if (!chat.getId().toString().equals(YmlResolver.getInstance().getValue("admin_chat"))) {

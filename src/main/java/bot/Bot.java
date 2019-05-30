@@ -1,5 +1,6 @@
 package bot;
 
+import command.BanCommand;
 import command.HelpCommand;
 import command.MenuCommand;
 import command.ReportCommand;
@@ -36,6 +37,7 @@ public class Bot extends TelegramLongPollingCommandBot {
         super.register(new UfficioErsuCommand()); // 2
         super.register(new StartCommand()); // 3
         super.register(new HelpCommand()); // 4
+        super.register(new BanCommand()); // 5
         commands = super.getRegisteredCommands().stream().collect(Collectors.toList());
 
     }
