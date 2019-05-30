@@ -36,6 +36,7 @@ public class ReportCommand extends BotCommand {
         
         else usernameSender = "@"+usernameSender; 
         StringBuilder msgBuilder = new StringBuilder("Segnalazione da ").append(usernameSender);
+        msgBuilder.append("\n{id: "+user.getId()+"}");
         msgBuilder.append("\n").append(buildStr);
         
         SendMessage adminChat = new SendMessage()
