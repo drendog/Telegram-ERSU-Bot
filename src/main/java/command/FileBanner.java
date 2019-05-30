@@ -36,6 +36,14 @@ public class FileBanner {
             org.apache.log4j.Logger.getLogger(FileBanner.class).error("Errore scrittura file", ex);
         }
     }
+    private static void clean(String str) {
+        try {
+            Files.delete(Paths.get(PATH));
+            Files.write(Paths.get(PATH),str.getBytes(), StandardOpenOption.WRITE);
+        } catch (IOException ex) {
+            org.apache.log4j.Logger.getLogger(FileBanner.class).error("Errore scrittura file", ex);
+        }
+    }
     
     public static List<String> getBanned() {
         String fileContent =  read(); 
@@ -56,5 +64,13 @@ public class FileBanner {
             list.add(token.nextToken());
         
         return list; 
+    }
+    public static void remove(String userId) {
+        String str = getBanned()
+                .stream()
+                .filter(x -> !x.equals(userId))
+                .reduce("",(acc,x) -> x + "\n");
+        clean(str);
+        
     }
 }

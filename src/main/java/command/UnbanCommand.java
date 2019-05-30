@@ -1,8 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package command;
 
 import bot.YmlResolver;
 import java.util.List;
-import java.util.Optional;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -10,10 +14,14 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class BanCommand extends BotCommand {
+/**
+ *
+ * @author Pierpaolo
+ */
+public class UnbanCommand extends BotCommand{
 
-    public BanCommand() {
-        super("ban", "Ban comando report");
+    public UnbanCommand() {
+        super("unban", "Serve a togliere il ban ad un utente");
     }
 
     @Override
@@ -40,10 +48,10 @@ public class BanCommand extends BotCommand {
         List<String> usersBanned = FileBanner.getBanned();
 
         
-        String text = "Utente già bannato.";
-        if (!FileBanner.isPresent(user)) {
-            FileBanner.write(id.toString());
-            text = "Utente {" + id + "} bannato";
+        String text = "Utente non è bannato.";
+        if (FileBanner.isPresent(user)) {
+            FileBanner.remove(id.toString());
+            text = "Utente {" + id + "} unbannato";
         }
         try {
             as.execute(new SendMessage()
@@ -55,11 +63,10 @@ public class BanCommand extends BotCommand {
         }
 
     }
-
     private void noParam(AbsSender as, Chat chat) {
         SendMessage message = new SendMessage()
                 .setChatId(chat.getId())
-                .setText("Comando ban errato oppure non hai inserito un ID utente. \n"
+                .setText("Comando unban errato oppure non hai inserito un ID utente. \n"
                         + "/ban ID_UTENTE");
         try {
             as.execute(message);
