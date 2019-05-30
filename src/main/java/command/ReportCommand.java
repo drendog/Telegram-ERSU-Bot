@@ -18,8 +18,9 @@ public class ReportCommand extends BotCommand {
     
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
-        if (FileBanner.isPresent(user.getId())) {
+        if (FileBanner.isPresent(user.getId().toString())) {
             youBanned(as,chat);
+            return; 
         }
         if (strings.length == 0)  {
             noParam(as,chat);
