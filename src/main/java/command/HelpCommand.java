@@ -16,14 +16,15 @@ public class HelpCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
-        String text = "Telegram ERSU Bot\n"+
-                    "/menu fornisce il menù per il prossimo pasto\n"+
-                    "/ufficioersu fornisce informazioni sugli uffici ERSU\n"+
-                    "/report fornisce un servizio di segnalazione di problemi"+
-                    " relativi a tutto ciò che concerne l'ERSU";
+        String text = "<b>Telegram ERSU Bot</b>\n\n"+
+                    "/menu Fornisce il menù per il prossimo pasto Mensa;\n\n"+
+                    "/ufficioersu Fornisce informazioni sugli uffici ERSU Catania;\n\n"+
+                    "/report Fornisce la possibilità di poter inviare una segnalazione ai "
+                    + "Rappresentanti ERSU, riguardante qualsiasi disservizio, informazione, dubbi e domande.";
+                    
         SendMessage message = new SendMessage()
                         .setChatId(chat.getId().toString())
-                        .setParseMode(ParseMode.HTML)
+                        .enableHtml(true)
                         .setText(text);
         if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
         try {
