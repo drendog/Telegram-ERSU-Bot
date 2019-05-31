@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.util.TimerTask;
 
@@ -38,9 +37,8 @@ public class MenuDownloader extends TimerTask  {
             readableByteChannel = Channels.newChannel(getLinkPdf().openStream());
             FileOutputStream fileOutputStream = null;
             fileOutputStream = new FileOutputStream(YmlResolver.getInstance().getValue("path_mensa"));
-            FileChannel fileChannel = fileOutputStream.getChannel();
-            fileOutputStream.getChannel()
-                    .transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
+            fileOutputStream.getChannel().transferFrom(readableByteChannel, fileOutputStream.getChannel().position(), Long.MAX_VALUE);
+            fileOutputStream.close();
         } catch (IOException ex) {
             org.apache.log4j.Logger.getLogger(PdfExtracter.class).error("Errore DOWNLOAD file PDF menu", ex);
         }

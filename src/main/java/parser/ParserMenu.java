@@ -14,8 +14,10 @@ public class ParserMenu {
     private SimpleDateFormat format;
 
     public ParserMenu(File f) {
-        text = new PdfExtracter(f).getText();
-        format = new SimpleDateFormat("dd.MM.yyyy");
+        if (f.exists()) {
+            text = new PdfExtracter(f).getText();
+            format = new SimpleDateFormat("dd.MM.yyyy");
+        }
     }
 
     private Map<String, String> createMap() {
