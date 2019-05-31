@@ -17,9 +17,9 @@ public class HelpCommand extends BotCommand {
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
         String text = "<b>Telegram ERSU Bot</b>\n\n"+
-                    "/menu Fornisce il menù per il prossimo pasto Mensa;\n\n"+
-                    "/ufficioersu Fornisce informazioni sugli uffici ERSU Catania;\n\n"+
-                    "/report Fornisce la possibilità di poter inviare una segnalazione ai "
+                    "🍽 /menu Fornisce il menù per il prossimo pasto Mensa;\n\n"+
+                    "📚 /ufficioersu Fornisce informazioni sugli uffici ERSU Catania;\n\n"+
+                    "📬 /report Fornisce la possibilità di poter inviare una segnalazione ai "
                     + "Rappresentanti ERSU, riguardante qualsiasi disservizio, informazione, dubbi e domande.";
                     
         SendMessage message = new SendMessage()

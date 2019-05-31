@@ -24,7 +24,6 @@ public class MenuCommand extends BotCommand {
         SendMessage message = new SendMessage()
                         .setChatId(chat.getId().toString())
                         .setParseMode(ParseMode.HTML)
-                        
                         .setText(p.getMenu());
         if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
         try {
