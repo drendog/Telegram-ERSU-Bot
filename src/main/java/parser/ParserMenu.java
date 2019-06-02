@@ -1,5 +1,6 @@
 package parser;
 
+import bot.YmlResolver;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -135,7 +136,7 @@ public class ParserMenu {
         return menuPranzo;
     }
 
-    private boolean MenuDateisOk(){
+    private boolean menuDateisOk(){
         Date now = new Date(System.currentTimeMillis());
 
         if(now.after(getStartDateMenu()) && now.before(getEndDateMenu()))
@@ -143,9 +144,15 @@ public class ParserMenu {
         
         return false;
     }
+    
+    public static boolean isOkDate() {
+       return new ParserMenu( 
+               new File(YmlResolver.getInstance().getValue("path_mensa")) 
+               ).menuDateisOk();
+    }
 
     public String getMenu() {
-        if(MenuDateisOk()){
+        if(menuDateisOk()){
             if (Calendar.getInstance().get(Calendar.HOUR) < 15){
                 return getPranzo();
             }
