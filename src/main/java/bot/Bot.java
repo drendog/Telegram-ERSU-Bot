@@ -1,12 +1,6 @@
 package bot;
 
-import command.BanCommand;
-import command.HelpCommand;
-import command.MenuCommand;
-import command.ReportCommand;
-import command.StartCommand;
-import command.UfficioErsuCommand;
-import command.UnbanCommand;
+import command.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +33,8 @@ public class Bot extends TelegramLongPollingCommandBot {
         super.register(new StartCommand()); // 3
         super.register(new HelpCommand()); // 4
         super.register(new BanCommand()); // 5
-        super.register(new UnbanCommand());
+        super.register(new UnbanCommand()); // 6
+        super.register(new CloseCommand());
         commands = super.getRegisteredCommands().stream().collect(Collectors.toList());
 
     }
