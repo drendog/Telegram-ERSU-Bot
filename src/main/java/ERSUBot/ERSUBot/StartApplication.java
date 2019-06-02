@@ -6,11 +6,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import bot.Bot;
 import bot.YmlResolver;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Properties;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 import job.JobMensa;

@@ -15,7 +15,7 @@ public class BanCommand extends BotCommand {
     public BanCommand() {
         super("ban", "Ban comando report");
     }
-
+    
     @Override
     public void execute(AbsSender as, User user, Chat chat, String[] strings) {
         if  (user.getId().toString().equals(chat.getId().toString())) {

@@ -27,7 +27,8 @@ public class MenuDownloader extends TimerTask  {
     
     @Override
     public void run() {
-        download();
+        if (!ParserMenu.isOkDate()) return;
+        download(); // else.  
     }
     
     

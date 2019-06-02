@@ -6,7 +6,6 @@
 package command;
 
 import bot.YmlResolver;
-import java.util.List;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;

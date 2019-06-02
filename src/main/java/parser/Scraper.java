@@ -45,7 +45,7 @@ public class Scraper extends TimerTask {
     }
 
     private String getNews(String link) {
-
+        FileManager.write(link);
         Document news = null;
         try {
             news = Jsoup.connect(link).get();
@@ -55,7 +55,7 @@ public class Scraper extends TimerTask {
         if (news == null) {
             return "Errore creazione news";
         }
-        FileManager.write(link);
+        
         return getContentNews(news);
 
     }

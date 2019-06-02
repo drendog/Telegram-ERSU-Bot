@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringTokenizer;
-import org.telegram.telegrambots.meta.api.objects.User;
 
 
 public class FileBanner {
@@ -53,7 +52,7 @@ public class FileBanner {
     }
     public static boolean isPresent(String userId) {
         Optional<String> userBanned = getBanned().stream()
-                .filter(x -> x.equals(userId.toString()))
+                .filter(x -> x.equals(userId))
                 .findAny();
         return userBanned.isPresent();
     }
