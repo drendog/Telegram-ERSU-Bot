@@ -150,7 +150,10 @@ public class ParserMenu {
                new File(YmlResolver.getInstance().getValue("path_mensa")) 
                ).menuDateisOk();
     }
-
+    public static boolean isOkFile() {
+        return new File( YmlResolver.getInstance().getValue("path_mensa") 
+                ).exists();
+    }
     public String getMenu() {
         if(menuDateisOk()){
             if (Calendar.getInstance().get(Calendar.HOUR) < 15){

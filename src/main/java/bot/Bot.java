@@ -34,7 +34,8 @@ public class Bot extends TelegramLongPollingCommandBot {
         super.register(new HelpCommand()); // 4
         super.register(new BanCommand()); // 5
         super.register(new UnbanCommand()); // 6
-        super.register(new CloseCommand());
+        super.register(new CloseCommand()); // 7
+        super.register(new SendErrorCommand()); // 8
         commands = super.getRegisteredCommands().stream().collect(Collectors.toList());
 
     }
