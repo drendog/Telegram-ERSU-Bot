@@ -10,15 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParserMenu {
-
-    private String text;
     private SimpleDateFormat format;
+    private final String PATH;
 
-    public ParserMenu(File f) {
-        if (f.exists()) {
-            text = new PdfExtracter(f).getText();
-            format = new SimpleDateFormat("dd.MM.yyyy");
-        }
+    public ParserMenu(String path) {
+        PATH = path;
+        format = new SimpleDateFormat("dd.MM.yyyy");
     }
 
     private Map<String, String> createMap() {
@@ -35,9 +32,16 @@ public class ParserMenu {
         return dayMap;
     }
 
-    public Date getStartDateMenu() {
-        String text = this.text.toUpperCase();
-        String tmp = text.split("DAL")[1].replace("AL", "").replace("PRANZO", "").split(" ")[1];
+    private String getText(){
+        File f = new File(PATH);
+        return new PdfExtracter(f).getText();
+    }
+
+    private Date getStartDateMenu() {
+        String text = getText();
+        
+        String tmp = text.toUpperCase();
+        tmp = text.split("DAL")[1].replace("AL", "").replace("PRANZO", "").split(" ")[1];
 
         try {
             Date start = format.parse(tmp);
@@ -49,8 +53,10 @@ public class ParserMenu {
     }
     
     public Date getEndDateMenu() {
-        String text = this.text.toUpperCase();
-        String tmp = text.split("DAL")[1].replace("AL", "").replace("PRANZO", "").split(" ")[3];
+        String text = getText();
+
+        String tmp = text.toUpperCase();
+        tmp = text.split("DAL")[1].replace("AL", "").replace("PRANZO", "").split(" ")[3];
         
         try {
             Date end = format.parse(tmp);
@@ -63,6 +69,7 @@ public class ParserMenu {
 
     private String searchDay() {
         Map<String, String> dayMap = createMap();
+        String text = getText();
 
         SimpleDateFormat sdf = new SimpleDateFormat("E");
         String today = dayMap.get(sdf.format(new Date()));
@@ -147,7 +154,7 @@ public class ParserMenu {
     
     public static boolean isOkDate() {
        return new ParserMenu( 
-               new File(YmlResolver.getInstance().getValue("path_mensa")) 
+               YmlResolver.getInstance().getValue("path_mensa") 
                ).menuDateisOk();
     }
     public static boolean isOkFile() {

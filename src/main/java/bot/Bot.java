@@ -21,9 +21,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import parser.ParserMenu;
 
 public class Bot extends TelegramLongPollingCommandBot {
-
-    private final String PATH = YmlResolver.getInstance().getValue("path_mensa");
-    private ParserMenu p = new ParserMenu(new File(PATH));
+    private ParserMenu p = new ParserMenu(YmlResolver.getInstance().getValue("path_mensa"));
     private List<IBotCommand> commands;
     public Bot(String botUsername) {
         super(botUsername);
