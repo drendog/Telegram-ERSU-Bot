@@ -32,13 +32,14 @@ public class UfficioErsuCommand extends BotCommand {
     }
 
     public String getText() {
-        String text = "<b>ERSU Catania</b>\n";
-        text += "Sede della Cittadella (accanto l'ingresso della Casa dello Studente)\n\n";
-        text += "🕑 <b>Orari</b>:\n";
-        text += "Martedì-Giovedì dalle 9:00 alle 12:30\n\n";
-        text += "<b>UfficioErsu vicino la mensa Oberdan</b>\n";
-        text += "Lunedì-Mercoledì-Venerdì dalle 09:00 alle 12:30\n";
-        text += "mercoledì 15:00 - 18:00\n";
+        String text = "<b>ERSU Catania</b>\n\n";
+        text += "📍 Via Etnea, 570\n\n";
+        text += "🕑 Orari di ricevimento:\n";
+        text += "Lunedì 09:00 - 12:00\n";
+        text += "Mercoledì 15:00 - 18:00\n";
+        text += "Venerdì 09:00 - 12:00\n\n";
+        text += "Tel. Centralino\n";
+        text += "📞 095 7517910";
         return text;
     }
     
