@@ -109,7 +109,7 @@ public class ParserMenu {
         menuPranzo += piatti[26] + "\n";
 
         //Contorni
-        menuPranzo += "<b>CONTORNI</b>\n";
+        menuPranzo += "\n<b>CONTORNI</b>\n";
         menuPranzo += piatti[3] + "\n";
         menuPranzo += piatti[10] + "\n";
         menuPranzo += piatti[16] + "\n";
@@ -138,7 +138,7 @@ public class ParserMenu {
         menuPranzo += piatti[26] + "\n";
 
         //Contorni
-        menuPranzo += "<b>CONTORNI</b>\n";
+        menuPranzo += "\n<b>CONTORNI</b>\n";
         menuPranzo += piatti[3] + "\n";
         menuPranzo += piatti[9] + "\n";
         menuPranzo += piatti[16] + "\n";
