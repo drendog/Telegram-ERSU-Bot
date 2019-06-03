@@ -19,7 +19,7 @@ public class PdfExtracterTest {
     }
 
     public void testParser() {
-        ParserMenu p = new ParserMenu(new File("data/menu.pdf"));
+        ParserMenu p = ParserMenu.getInstance()
 		//p.tokenizer();
         //System.out.println(p.searchDay());
         //p.getMenu();
