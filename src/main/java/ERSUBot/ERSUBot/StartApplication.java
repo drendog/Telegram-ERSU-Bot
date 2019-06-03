@@ -8,6 +8,8 @@ import bot.Bot;
 import bot.YmlResolver;
 import java.util.Calendar;
 import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import job.JobMensa;
 import org.apache.log4j.Logger;
@@ -30,28 +32,12 @@ public class StartApplication {
         try {
             botsApi.registerBot(b);
             new Timer().scheduleAtFixedRate(new Scraper(b), 0, 1000*60); // Job Scraping News
-            new Timer().scheduleAtFixedRate(new JobMensa(b), getAM().getTime(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
-            new Timer().scheduleAtFixedRate(new JobMensa(b), getPM().getTime(), TimeUnit.DAYS.toMillis(1)); // Ore 18:45
+            new Timer().scheduleAtFixedRate(new JobMensa(b), JobMensa.getAM().getTime(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
+            new Timer().scheduleAtFixedRate(new JobMensa(b), JobMensa.getPM().getTime(), TimeUnit.DAYS.toMillis(1)); // Ore 18:45
+            
         } catch (TelegramApiException e) {
             Logger.getLogger(StartApplication.class).error(e);
         }
-        
     }
-    
-    public static Calendar getAM() {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 11);
-        c.set(Calendar.MINUTE, 45);
-        c.set(Calendar.SECOND, 0);
-        return c;
-    }
-    public static Calendar getPM() {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 18);
-        c.set(Calendar.MINUTE, 45);
-        c.set(Calendar.SECOND, 0);
-        return c;
-    }
-    
-     
+ 
 }

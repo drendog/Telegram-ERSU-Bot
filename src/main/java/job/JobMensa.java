@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -25,7 +26,7 @@ public class JobMensa extends TimerTask {
         String textMenu = ParserMenu.getInstance().getMenu(); 
         if (textMenu.contains("mensa non disponibile")) return; 
                
-        if (!inRange()) return; 
+        //if (!inRange()) return; 
         
         try {
             SendMessage message = new SendMessage()
@@ -38,38 +39,43 @@ public class JobMensa extends TimerTask {
         }
              
     }
-    public static Calendar getAM() {
+    public static Date getAM() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 11);
         c.set(Calendar.MINUTE, 45);
         c.set(Calendar.SECOND, 0);
-        return c;
+        if (!new Date().before(c.getTime()))
+            return new Date(c.getTimeInMillis() + TimeUnit.DAYS.toMillis(1));
+        return c.getTime();
     }
-    public static Calendar getPM() {
+    public static Date getPM() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 18);
         c.set(Calendar.MINUTE, 45);
         c.set(Calendar.SECOND, 0);
-        return c;
+        if (!new Date().before(c.getTime()))
+            return new Date(c.getTimeInMillis() + TimeUnit.DAYS.toMillis(1));
+        return c.getTime();
     }
-    
+    /*
     public static boolean inRange() {
         long now = new Date().getTime();
         Calendar fAM = getAM();
-        fAM.set(Calendar.MINUTE, 44);
+        fAM.set(Calendar.MINUTE, 9);
         Calendar bAM = getAM(); 
-        bAM.set(Calendar.MINUTE, 46);
+        bAM.set(Calendar.MINUTE, 11);
         long lfAM =  fAM.getTimeInMillis();
         long lbAM =  bAM.getTimeInMillis();
         
         Calendar fPM = getPM();
-        fPM.set(Calendar.MINUTE, 44);
+        fPM.set(Calendar.MINUTE, 25);
         Calendar bPM = getPM(); 
-        bPM.set(Calendar.MINUTE, 46);
+        bPM.set(Calendar.MINUTE, 27);
         long lfPM =  fPM.getTimeInMillis();
         long lbPM =  bPM.getTimeInMillis();
         
         return (lfAM < now && now < lbAM) || (lfPM < now && now < lbPM);
     }
+    */
     
 }
