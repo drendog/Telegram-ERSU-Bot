@@ -1,4 +1,4 @@
-
+\
 package command;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
@@ -33,7 +33,7 @@ public class UfficioErsuCommand extends BotCommand {
 
     public String getText() {
         String text = "<b>ERSU Catania</b>\n\n";
-        text += "📍 Via Etnea, 570\n\n";
+	text += "📍<a href=\"https://www.google.com/maps/dir//Via+Etnea,+570,+95128+Catania+CT/\"> Via Etnea, 570</a>\n\n";^
         text += "🕑 Orari di ricevimento:\n";
         text += "Lunedì 09:00 - 12:00\n";
         text += "Mercoledì 15:00 - 18:00\n";
