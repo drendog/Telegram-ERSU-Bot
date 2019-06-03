@@ -16,7 +16,7 @@ public class JobMensa extends TimerTask {
     private final String PATH = YmlResolver.getInstance().getValue("path_mensa");
     
     private Bot bot;
-    private final ParserMenu p = new ParserMenu(new File(PATH));
+    private final ParserMenu p = new ParserMenu(PATH);
     
     public JobMensa(Bot bot) {
         this.bot = bot;
