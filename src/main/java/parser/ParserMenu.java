@@ -79,30 +79,30 @@ public class ParserMenu {
     }
 
     private String getPranzo() {
-        String menuPranzo = "<b>🍽 MENÙ CENA:</b> \n";
+        String menuPranzo = "<b>🍽 MENÙ PRANZO:</b> \n";
         String[] piatti = getMenuToday();
 
         //Primi Piatti
         menuPranzo += "<b>PRIMI PIATTI</b>\n";
         menuPranzo += piatti[1] + "\n";
-        menuPranzo += piatti[7] + "\n";
-        menuPranzo += piatti[13] + "\n";
-        menuPranzo += piatti[19] + "\n";
+        menuPranzo += piatti[8] + "\n";
+        menuPranzo += piatti[14] + "\n";
+        menuPranzo += piatti[20] + "\n";
 
         //Secondi Piatti
         menuPranzo += "\n<b>SECONDI PIATTI</b>\n";
         menuPranzo += piatti[2] + "\n";
-        menuPranzo += piatti[8] + "\n";
-        menuPranzo += piatti[14] + "\n";
-        menuPranzo += piatti[20] + "\n";
+        menuPranzo += piatti[9] + "\n";
+        menuPranzo += piatti[15] + "\n";
+        menuPranzo += piatti[21] + "\n";
         menuPranzo += piatti[26] + "\n";
 
         //Contorni
         menuPranzo += "<b>CONTORNI</b>\n";
         menuPranzo += piatti[3] + "\n";
-        menuPranzo += piatti[9] + "\n";
+        menuPranzo += piatti[10] + "\n";
         menuPranzo += piatti[16] + "\n";
-        menuPranzo += piatti[21] + "\n";
+        menuPranzo += piatti[22] + "\n";
 
         return menuPranzo;
     }
