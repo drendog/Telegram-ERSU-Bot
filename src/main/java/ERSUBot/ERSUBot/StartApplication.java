@@ -32,8 +32,8 @@ public class StartApplication {
         try {
             botsApi.registerBot(b);
             new Timer().scheduleAtFixedRate(new Scraper(b), 0, 1000*60); // Job Scraping News
-            new Timer().scheduleAtFixedRate(new JobMensa(b), JobMensa.getAM().getTime(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
-            new Timer().scheduleAtFixedRate(new JobMensa(b), JobMensa.getPM().getTime(), TimeUnit.DAYS.toMillis(1)); // Ore 18:45
+            new Timer().scheduleAtFixedRate(new JobMensa(b), JobMensa.getAM(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
+            new Timer().scheduleAtFixedRate(new JobMensa(b), JobMensa.getPM(), TimeUnit.DAYS.toMillis(1)); // Ore 18:45
             
         } catch (TelegramApiException e) {
             Logger.getLogger(StartApplication.class).error(e);
