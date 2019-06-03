@@ -21,12 +21,11 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import parser.ParserMenu;
 
 public class Bot extends TelegramLongPollingCommandBot {
-    private ParserMenu p = new ParserMenu(YmlResolver.getInstance().getValue("path_mensa"));
     private List<IBotCommand> commands;
     public Bot(String botUsername) {
         super(botUsername);
         super.register(new ReportCommand()); // 0
-        super.register(new MenuCommand(p)); // 1
+        super.register(new MenuCommand()); // 1
         super.register(new UfficioErsuCommand()); // 2
         super.register(new StartCommand()); // 3
         super.register(new HelpCommand()); // 4
@@ -59,7 +58,7 @@ public class Bot extends TelegramLongPollingCommandBot {
     }
 
     public void sendMenuToChannel() {
-        sendMessageToChannel(p.getMenu());
+        sendMessageToChannel(ParserMenu.getInstance().getMenu());
     }
 
     @Override

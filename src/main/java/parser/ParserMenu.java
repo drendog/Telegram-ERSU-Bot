@@ -10,12 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParserMenu {
-    private SimpleDateFormat format;
-    private final String PATH;
+    private static SimpleDateFormat format;
+    private static String PATH = YmlResolver.getInstance().getValue("path_mensa");
+    private static ParserMenu  obj = new ParserMenu();
 
-    public ParserMenu(String path) {
-        PATH = path;
+    private  ParserMenu() {
         format = new SimpleDateFormat("dd.MM.yyyy");
+    }
+
+    public static ParserMenu getInstance(){
+        return obj;
     }
 
     private Map<String, String> createMap() {
@@ -32,12 +36,12 @@ public class ParserMenu {
         return dayMap;
     }
 
-    private String getText(){
+    private static String getText(){
         File f = new File(PATH);
         return new PdfExtracter(f).getText();
     }
 
-    private Date getStartDateMenu() {
+    private static Date getStartDateMenu() {
         String text = getText();
         
         String tmp = text.toUpperCase();
@@ -52,7 +56,7 @@ public class ParserMenu {
         return null;
     }
     
-    public Date getEndDateMenu() {
+    private static Date getEndDateMenu() {
         String text = getText();
 
         String tmp = text.toUpperCase();
@@ -143,7 +147,7 @@ public class ParserMenu {
         return menuPranzo;
     }
 
-    private boolean menuDateisOk(){
+    private static boolean menuDateisOk(){
         Date now = new Date(System.currentTimeMillis());
 
         if(now.after(getStartDateMenu()) && now.before(getEndDateMenu()))
@@ -152,14 +156,14 @@ public class ParserMenu {
         return false;
     }
     
-    public static boolean isOkDate() {
-       return new ParserMenu( 
-               YmlResolver.getInstance().getValue("path_mensa") 
-               ).menuDateisOk();
+    public boolean isOkDate() {
+       return menuDateisOk();
     }
-    public static boolean isOkFile() {
-        return new File( YmlResolver.getInstance().getValue("path_mensa") 
-                ).exists();
+    public boolean isOkFile() {
+        File f = new File(PATH);
+        if(f.exists())
+            return true;
+        return false;
     }
     public String getMenu() {
         if(menuDateisOk()){

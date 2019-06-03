@@ -12,19 +12,15 @@ import parser.ParserMenu;
 import parser.Scraper;
 
 public class JobMensa extends TimerTask {
-    
-    private final String PATH = YmlResolver.getInstance().getValue("path_mensa");
-    
     private Bot bot;
-    private final ParserMenu p = new ParserMenu(PATH);
-    
+
     public JobMensa(Bot bot) {
         this.bot = bot;
     }
 
     @Override
     public void run() {
-        String textMenu = p.getMenu(); 
+        String textMenu = ParserMenu.getInstance().getMenu(); 
         if (textMenu.contains("mensa non disponibile")) return; 
         try {
             SendMessage message = new SendMessage()

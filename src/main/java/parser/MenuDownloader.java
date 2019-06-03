@@ -14,7 +14,7 @@ import org.jsoup.nodes.Document;
 
 public class MenuDownloader extends TimerTask  {
     private static MenuDownloader istance; 
-    
+
     private MenuDownloader() {
         
     }
@@ -27,7 +27,7 @@ public class MenuDownloader extends TimerTask  {
     
     @Override
     public void run() {
-        if (!ParserMenu.isOkDate() && ParserMenu.isOkFile()) return;
+        if (ParserMenu.getInstance().isOkFile() && ParserMenu.getInstance().isOkDate() ) return;
         download(); // else.  
     }
     

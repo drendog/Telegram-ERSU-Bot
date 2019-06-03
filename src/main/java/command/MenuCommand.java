@@ -11,12 +11,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import parser.ParserMenu;
 
 public class MenuCommand extends BotCommand { 
-    
-    private ParserMenu p; 
-    
-    public MenuCommand(ParserMenu p) {
+    public MenuCommand() {
         super("menu", "Invia il menù giornaliero della mensa");
-        this.p = p;
     }
 
     @Override
@@ -24,7 +20,7 @@ public class MenuCommand extends BotCommand {
         SendMessage message = new SendMessage()
                         .setChatId(chat.getId().toString())
                         .setParseMode(ParseMode.HTML)
-                        .setText(p.getMenu());
+                        .setText(ParserMenu.getInstance().getMenu());
         if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
         try {
             as.execute(message);
