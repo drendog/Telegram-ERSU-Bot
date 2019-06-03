@@ -156,7 +156,7 @@ public class ParserMenu {
     }
     public String getMenu() {
         if(menuDateisOk()){
-            if (Calendar.getInstance().get(Calendar.HOUR) < 15){
+            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < 15){
                 return getPranzo();
             }
             else{
