@@ -84,8 +84,10 @@ public class ParserMenu {
 
     public String[] getMenuToday() {
         String s = searchDay().split("CONTORNI")[2];
+        s=s.replace("Amatriciana", "amatriciana");
+        s=s.replace("Tarantina", "tarantina");
         String[] splitS = s.split("(?=\\p{Lu})");
-
+        
         return splitS;
     }
 
@@ -96,24 +98,24 @@ public class ParserMenu {
         //Primi Piatti
         menuPranzo += "<b>PRIMI PIATTI</b>\n";
         menuPranzo += piatti[1] + "\n";
-        menuPranzo += piatti[8] + "\n";
-        menuPranzo += piatti[14] + "\n";
-        menuPranzo += piatti[20] + "\n";
+        menuPranzo += piatti[7] + "\n";
+        menuPranzo += piatti[13] + "\n";
+        menuPranzo += piatti[19] + "\n";
 
         //Secondi Piatti
         menuPranzo += "\n<b>SECONDI PIATTI</b>\n";
         menuPranzo += piatti[2] + "\n";
-        menuPranzo += piatti[9] + "\n";
-        menuPranzo += piatti[15] + "\n";
-        menuPranzo += piatti[21] + "\n";
+        menuPranzo += piatti[8] + "\n";
+        menuPranzo += piatti[14] + "\n";
+        menuPranzo += piatti[20] + "\n";
         menuPranzo += piatti[26] + "\n";
 
         //Contorni
-        menuPranzo += "\n<b>CONTORNI</b>\n";
+        menuPranzo += "<b>CONTORNI</b>\n";
         menuPranzo += piatti[3] + "\n";
-        menuPranzo += piatti[10] + "\n";
-        menuPranzo += piatti[16] + "\n";
-        menuPranzo += piatti[22] + "\n";
+        menuPranzo += piatti[9] + "\n";
+        menuPranzo += piatti[15] + "\n";
+        menuPranzo += piatti[21] + "\n";
 
         return menuPranzo;
     }
@@ -138,11 +140,11 @@ public class ParserMenu {
         menuPranzo += piatti[26] + "\n";
 
         //Contorni
-        menuPranzo += "\n<b>CONTORNI</b>\n";
-        menuPranzo += piatti[3] + "\n";
-        menuPranzo += piatti[9] + "\n";
-        menuPranzo += piatti[16] + "\n";
+        menuPranzo += "<b>CONTORNI</b>\n";
+        menuPranzo += piatti[6] + "\n";
         menuPranzo += piatti[21] + "\n";
+        menuPranzo += piatti[18] + "\n";
+        menuPranzo += piatti[24] + "\n";
 
         return menuPranzo;
     }
