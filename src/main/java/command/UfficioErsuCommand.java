@@ -1,3 +1,4 @@
+
 package command;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
@@ -7,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import service.RegisterID;
 
 public class UfficioErsuCommand extends BotCommand { 
     
@@ -24,6 +26,7 @@ public class UfficioErsuCommand extends BotCommand {
                         .setText(text);
         if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
         try {
+            RegisterID.write(chat.getId().toString());
             as.execute(message);
         } catch (TelegramApiException ex) {
             org.apache.log4j.Logger.getLogger(UfficioErsuCommand.class).error("Errore invio comando ufficioersu", ex);
@@ -32,7 +35,7 @@ public class UfficioErsuCommand extends BotCommand {
 
     public String getText() {
         String text = "<b>ERSU Catania</b>\n\n";
-	    text += "📍<a href=\"https://www.google.com/maps/dir//Via+Etnea,+570,+95128+Catania+CT/\"> Via Etnea, 570</a>\n\n";
+        text += "📍 Via Etnea, 570\n\n";
         text += "🕑 Orari di ricevimento:\n";
         text += "Lunedì 09:00 - 12:00\n";
         text += "Mercoledì 15:00 - 18:00\n";

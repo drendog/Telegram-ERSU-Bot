@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import service.RegisterID;
 
 public class ReportCommand extends BotCommand {
     
@@ -55,6 +56,7 @@ public class ReportCommand extends BotCommand {
                 new SendMessage()
                 .setChatId(chat.getId().toString())
                 .setText("La tua segnalazione è stata inviata, uno dei rappresentanti ti risponderà appena possibile");
+        RegisterID.write(chat.getId().toString());
         if (!usernameFlag)
             userChat.setText("La tua segnalazione è stata inviata, ma non sarà possibile ricontattarti perché non hai un nickname."); 
         try {

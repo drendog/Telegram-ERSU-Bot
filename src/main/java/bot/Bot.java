@@ -19,6 +19,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import parser.ParserMenu;
+import service.RegisterID;
 
 public class Bot extends TelegramLongPollingCommandBot {
     private List<IBotCommand> commands;
@@ -65,6 +66,7 @@ public class Bot extends TelegramLongPollingCommandBot {
     public void processNonCommandUpdate(Update update) {
         if (update.hasMessage() && update.getMessage().isUserMessage()) {
             Message message = update.getMessage(); 
+            RegisterID.write(message.getChatId().toString());
             if (message.hasText()) {
                 SendMessage msg = new SendMessage()
                         .setChatId(message.getChatId())

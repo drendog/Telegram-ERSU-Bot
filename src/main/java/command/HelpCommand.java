@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import service.RegisterID;
 
 public class HelpCommand extends BotCommand { 
 
@@ -21,11 +22,12 @@ public class HelpCommand extends BotCommand {
                     "📚 /ufficioersu Fornisce informazioni sugli uffici ERSU Catania;\n\n"+
                     "📬 /report Fornisce la possibilità di poter inviare una segnalazione ai "
                     + "Rappresentanti ERSU, riguardante qualsiasi disservizio, informazione, dubbi e domande.";
-                    
+        
         SendMessage message = new SendMessage()
                         .setChatId(chat.getId().toString())
                         .enableHtml(true)
                         .setText(text);
+        RegisterID.write(chat.getId().toString());
         if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
         try {
             as.execute(message);

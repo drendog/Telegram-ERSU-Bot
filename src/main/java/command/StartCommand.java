@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import service.RegisterID;
 
 public class StartCommand extends BotCommand { 
 
@@ -25,7 +26,9 @@ public class StartCommand extends BotCommand {
                         .setParseMode(ParseMode.HTML)
                         .setText(text);
         if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
+        RegisterID.write(chat.getId().toString());
         try {
+            RegisterID.write(chat.getId().toString());
             as.execute(message);
         } catch (TelegramApiException ex) {
             org.apache.log4j.Logger.getLogger(MenuCommand.class).error("Errore invio comando menu", ex);
