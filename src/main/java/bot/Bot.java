@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
@@ -36,31 +37,41 @@ public class Bot extends TelegramLongPollingCommandBot {
         super.register(new SendErrorCommand()); // 8
         super.register(new StatsCommand()); // 9
         commands = super.getRegisteredCommands().stream().collect(Collectors.toList());
-
+    }
+    
+    @Override
+    public void processInvalidCommandUpdate(Update update) {
+        if (!update.hasMessage()) return;
+        Message message = update.getMessage();
+        RegisterID.write(message.getChatId().toString());
+        
+        SendMessage msg = new SendMessage()
+                        .setChatId(message.getChatId());
+        if (!message.getText().contains("@") && message.getChat().isUserChat()) {
+            msg = msg
+                    .setReplyMarkup(generateRKM())
+                    .setText("Questo comando non esiste. Scegli uno di questi comandi dal menù");
+            try {
+                execute(msg);
+                return;
+            } catch (TelegramApiException ex) {
+             
+            }
+        }
+        if (message.getText().contains("@")) {
+            String command = selectCommandWithReplace(message.getText());
+            key(message,command);
+        }
+            
+        
+    }
+    private String selectCommandWithReplace(String msg) {
+        return msg.split("@")[0].substring(1);
     }
     
     @Override
     public String getBotToken() {
         return YmlResolver.getInstance().getValue("token");
-    }
-
-    private void sendMessageToChannel(String message){ 
-        SendMessage sd = new SendMessage();
-        sd.enableMarkdown(true);
-        sd.setChatId(YmlResolver.getInstance().getValue("mensa_channel"));
-
-        sd.setText(message);
-        sd.enableMarkdown(true);
-
-        try {
-            execute(sd);
-        } catch (TelegramApiException ex) {
-            Logger.getLogger(Bot.class).error("Errore invio messaggio al canale",ex);
-        }
-    }
-
-    public void sendMenuToChannel() {
-        sendMessageToChannel(ParserMenu.getInstance().getMenu());
     }
 
     @Override
@@ -115,7 +126,7 @@ public class Bot extends TelegramLongPollingCommandBot {
         Optional<IBotCommand> ufficioErsuCommand =
                 commands.stream().filter(x -> x.getCommandIdentifier().equals(identifier)).findFirst();
         if (ufficioErsuCommand.isPresent())
-            ufficioErsuCommand.get().processMessage(this, message, new String[0]);
+            ufficioErsuCommand.get().processMessage(this, message, message.getText().split(" "));
     }
    
     
