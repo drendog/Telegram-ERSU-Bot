@@ -2,6 +2,8 @@
 
 **Telegram-ERSU-Bot** is the platform that powers **@ERSUbot**, a Telegram bot aided at helping students find informations about ERSU services.
 
+This bot sends also the ERSU blog news and the related canteen menu in this Telegram channel [@ERSUnews](https://t.me/ERSUnews).
+
 ### Using the live version
 The bot is live on Telegram with the username [@ERSUbot](https://telegram.me/ERSUbot).
 Send **'/start'** to start it, **'/help'** to see a list of commands.
