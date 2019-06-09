@@ -154,6 +154,8 @@ public class ParserMenu {
 
         if(now.after(getStartDateMenu()) && now.before(getEndDateMenu()))
             return true;
+        if(now.equals(getStartDateMenu()) || now.equals(getEndDateMenu()))
+            return true;
         
         return false;
     }
