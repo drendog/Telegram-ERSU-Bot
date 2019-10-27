@@ -21,14 +21,14 @@ public class Scraper extends TimerTask {
 
     public Scraper(Bot bot) {
         this.bot = bot;
+    }
+
+    public void checkNews() throws TelegramApiException {
         try {
             doc = Jsoup.connect(URL).get();
         } catch (IOException ex) {
             org.apache.log4j.Logger.getLogger(Scraper.class).error("Connessione host ERSU non riuscita", ex);
         }
-    }
-
-    public void checkNews() throws TelegramApiException {
         final String content = FileManager.read(); // Deve 
         Elements elements = doc.getElementsByClass("half");
         for (Element e1 : elements) {
