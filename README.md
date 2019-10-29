@@ -12,6 +12,11 @@ Please note that the commands and their answers are in Italian.
 
 ---
 
+### System requirements
+
+- openjdk-11-jdk
+- maven
+
 ### Setting up a local istance
 If you want to test the bot by creating your personal istance, follow this steps:
 * **Clone this repository** or download it as zip.
@@ -26,13 +31,6 @@ and execute it :
 $ cd target/
 $ java -jar ERSUBot-0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
-
-
-### System requirements
-
-- openjdk-11-jdk
-- maven
-
 
 ### License
 This open-source software is published under the GNU General Public License (GNU GPL) version 3. Please refer to the "LICENSE" file of this project for the full text.

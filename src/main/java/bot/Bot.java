@@ -97,7 +97,7 @@ public class Bot extends TelegramLongPollingCommandBot {
 
             sndMsg.setReplyMarkup(rkm);
 
-            if (message.getText().equals("Ufficio ERSU Catania 📚")) {
+            if (message.getText().equals("Contatti ERSU 📚")) {
                 key(message, "ufficioersu");
                 return; 
             }
@@ -135,7 +135,7 @@ public class Bot extends TelegramLongPollingCommandBot {
         List<KeyboardRow> commands = new ArrayList<KeyboardRow>(); 
         KeyboardRow firstRow = new KeyboardRow();
         firstRow.add("Menù mensa 🍽");
-        firstRow.add("Ufficio ERSU Catania 📚");
+        firstRow.add("Contatti ERSU 📚");
         KeyboardRow secondRow = new KeyboardRow();
         secondRow.add("Segnalazioni Rappresentanti 📬");
         secondRow.add("Help ❔"); 
