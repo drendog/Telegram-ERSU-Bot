@@ -8,23 +8,22 @@ import java.util.Map;
 import bot.YmlResolver;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import service.RegisterID;
+import service.ReportsRegistry;
 
 public class ReportCommand extends BotCommand {
-    protected Map<Integer, Integer> reportsMap;
-    
     public ReportCommand() {
         super("report", "Segnalazioni");
-
-        reportsMap = new HashMap<>();
     }
     
     @Override
@@ -56,20 +55,25 @@ public class ReportCommand extends BotCommand {
         
         SendMessage adminChat = new SendMessage()
                 .setChatId(YmlResolver.getInstance().getValue("admin_chat"))
-                .setText(msgBuilder.toString())
-                .setReplyMarkup(generateReportReplyKeyboardMarkup());
+                .setText(msgBuilder.toString());
+                
         try {
-            as.execute(adminChat);
+            Message reportAdminMessage = as.execute(adminChat);
+
+            ReportsRegistry.getInstance().registerReport(reportAdminMessage.getMessageId(), chat.getId());
         } catch (TelegramApiException ex) {
             org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio segnalazione admin chat", ex);
         }
+
         SendMessage userChat = 
                 new SendMessage()
                 .setChatId(chat.getId().toString())
                 .setText("La tua segnalazione è stata inviata, uno dei rappresentanti ti risponderà appena possibile");
         RegisterID.write(chat.getId().toString());
+
         if (!usernameFlag)
             userChat.setText("La tua segnalazione è stata inviata, ma non sarà possibile ricontattarti perché non hai un nickname."); 
+
         try {
             as.execute(userChat);
         } catch (TelegramApiException ex) {
@@ -97,21 +101,5 @@ public class ReportCommand extends BotCommand {
         } catch (TelegramApiException ex) {
             org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
         }        
-    }
-
-    private static InlineKeyboardMarkup generateReportReplyKeyboardMarkup() {
-        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> keyboard = new ArrayList<>(1);
-
-        List<InlineKeyboardButton> row = new ArrayList<>(1);
-        row.add(new InlineKeyboardButton()
-            .setText("Rispondi")
-            .setCallbackData("report_reply")
-        );
-
-        keyboard.add(row);
-        keyboardMarkup.setKeyboard(keyboard);
-
-        return keyboardMarkup;
     }
 }

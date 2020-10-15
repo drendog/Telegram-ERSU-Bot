@@ -4,8 +4,8 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import bot.CallbackDataHandler;
 import bot.CommandsHandler;
+import bot.MessagesHandler;
 import bot.YmlResolver;
 import java.util.Calendar;
 import java.util.Timer;
@@ -22,7 +22,7 @@ public class StartApplication {
     public static void main(String[] args) {
 
         ApiContextInitializer.init();
-        PropertyConfigurator.configure(YmlResolver.getInstance().getValue("log4j.properties"));
+        PropertyConfigurator.configure(YmlResolver.getInstance().getValue("log4j_properties"));
         
         Logger.getLogger(StartApplication.class).info("Start Application");
         
@@ -31,11 +31,11 @@ public class StartApplication {
         new Timer().scheduleAtFixedRate(MenuDownloader.getDownloader(), 0, TimeUnit.HOURS.toMillis(1)); // Job Downloader Menù
 
         CommandsHandler commandsHandler = new CommandsHandler(YmlResolver.getInstance().getValue("BotUsername"));
-        CallbackDataHandler callbackDataHandler = new CallbackDataHandler();
+        MessagesHandler messagesHandler = new MessagesHandler();
 
         try {
             botsApi.registerBot(commandsHandler);
-            botsApi.registerBot(callbackDataHandler);
+            botsApi.registerBot(messagesHandler);
 
             new Timer().scheduleAtFixedRate(new Scraper(commandsHandler), 0, 1000*60); // Job Scraping News
             new Timer().scheduleAtFixedRate(new JobMensa(commandsHandler), JobMensa.getAM(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
