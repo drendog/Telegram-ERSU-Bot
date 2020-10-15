@@ -1,6 +1,8 @@
 package command;
 
 import bot.*;
+import utils.MenuHelpers;
+
 import java.io.File;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
@@ -22,7 +24,7 @@ public class SendErrorCommand extends BotCommand{
         SendDocument sendDocument = new SendDocument();
         sendDocument.setChatId(chat.getId().toString())
                 .setDocument(new File(YmlResolver.getInstance().getValue("log4j.properties")))
-                .setReplyMarkup(Bot.generateRKM());
+                .setReplyMarkup(MenuHelpers.generateMainMenuReplyKeyboardMarkup());
         try {
             as.execute(sendDocument);
         } catch (TelegramApiException ex) {

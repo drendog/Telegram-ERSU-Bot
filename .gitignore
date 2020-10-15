@@ -5,6 +5,7 @@
 .project
 .settings/
 target/
+.vscode/
 resources/data/avvisi.txt
 resources/data/blacklist.dat
 resources/data/id.dat

@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import service.RegisterID;
+import utils.MenuHelpers;
 
 public class StartCommand extends BotCommand { 
 
@@ -25,7 +26,7 @@ public class StartCommand extends BotCommand {
                         .setChatId(chat.getId().toString())
                         .setParseMode(ParseMode.HTML)
                         .setText(text);
-        if (chat.isUserChat()) message.setReplyMarkup(bot.Bot.generateRKM());
+        if (chat.isUserChat()) message.setReplyMarkup(MenuHelpers.generateMainMenuReplyKeyboardMarkup());
         RegisterID.write(chat.getId().toString());
         try {
             RegisterID.write(chat.getId().toString());

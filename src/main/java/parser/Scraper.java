@@ -1,6 +1,5 @@
 package parser;
 
-import bot.Bot;
 import bot.YmlResolver;
 import java.io.IOException;
 import java.util.TimerTask;
@@ -8,7 +7,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Scraper extends TimerTask {
@@ -17,9 +18,9 @@ public class Scraper extends TimerTask {
     
     private final static String NEWS_CHANNEL = YmlResolver.getInstance().getValue("news_channel");
     private Document doc;
-    private Bot bot;
+    private AbsSender bot;
 
-    public Scraper(Bot bot) {
+    public Scraper(AbsSender bot) {
         this.bot = bot;
     }
 

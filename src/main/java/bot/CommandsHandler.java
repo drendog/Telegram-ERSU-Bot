@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
-
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -21,10 +20,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import parser.ParserMenu;
 import service.RegisterID;
+import utils.MenuHelpers;
 
-public class Bot extends TelegramLongPollingCommandBot {
+public class CommandsHandler extends TelegramLongPollingCommandBot {
     private List<IBotCommand> commands;
-    public Bot(String botUsername) {
+
+    public CommandsHandler(String botUsername) {
         super(botUsername);
         super.register(new ReportCommand()); // 0
         super.register(new MenuCommand()); // 1
@@ -49,7 +50,7 @@ public class Bot extends TelegramLongPollingCommandBot {
                         .setChatId(message.getChatId());
         if (!message.getText().contains("@") && message.getChat().isUserChat()) {
             msg = msg
-                    .setReplyMarkup(generateRKM())
+                    .setReplyMarkup(MenuHelpers.generateMainMenuReplyKeyboardMarkup())
                     .setText("Questo comando non esiste. Scegli uno di questi comandi dal menù");
             try {
                 execute(msg);
@@ -93,7 +94,7 @@ public class Bot extends TelegramLongPollingCommandBot {
     protected void onKeyboardCommands(Message message)  {
         SendMessage sndMsg = new SendMessage().setChatId(message.getChatId());
         if (message.isUserMessage()) {
-            ReplyKeyboardMarkup rkm = generateRKM();
+            ReplyKeyboardMarkup rkm = MenuHelpers.generateMainMenuReplyKeyboardMarkup();
 
             sndMsg.setReplyMarkup(rkm);
 
@@ -128,24 +129,4 @@ public class Bot extends TelegramLongPollingCommandBot {
         if (ufficioErsuCommand.isPresent())
             ufficioErsuCommand.get().processMessage(this, message, message.getText().split(" "));
     }
-   
-    
-    public static ReplyKeyboardMarkup generateRKM() {
-        ReplyKeyboardMarkup rkm = new ReplyKeyboardMarkup();
-        List<KeyboardRow> commands = new ArrayList<KeyboardRow>(); 
-        KeyboardRow firstRow = new KeyboardRow();
-        firstRow.add("Menù mensa 🍽");
-        firstRow.add("Contatti ERSU 📚");
-        KeyboardRow secondRow = new KeyboardRow();
-        secondRow.add("Segnalazioni Rappresentanti 📬");
-        secondRow.add("Help ❔"); 
-        commands.add(firstRow);
-        commands.add(secondRow);
-        rkm.setResizeKeyboard(true);
-        rkm.setOneTimeKeyboard(true);
-        rkm.setKeyboard(commands);
-        rkm.setSelective(true);
-        return rkm; 
-    }
-    
 }

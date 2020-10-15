@@ -1,23 +1,20 @@
 package job;
 
-import bot.Bot;
 import bot.YmlResolver;
-import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import parser.ParserMenu;
 import parser.Scraper;
 
 public class JobMensa extends TimerTask {
-    private Bot bot;
+    private AbsSender bot;
 
-    public JobMensa(Bot bot) {
+    public JobMensa(AbsSender bot) {
         this.bot = bot;
     }
 
