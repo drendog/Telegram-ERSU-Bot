@@ -35,7 +35,7 @@ public class StartApplication {
 
         try {
             botsApi.registerBot(commandsHandler);
-            // botsApi.registerBot(callbackDataHandler);
+            botsApi.registerBot(callbackDataHandler);
 
             new Timer().scheduleAtFixedRate(new Scraper(commandsHandler), 0, 1000*60); // Job Scraping News
             new Timer().scheduleAtFixedRate(new JobMensa(commandsHandler), JobMensa.getAM(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
