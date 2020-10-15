@@ -1,4 +1,4 @@
-package command;
+package commands;
 
 import bot.YmlResolver;
 import java.util.logging.Level;

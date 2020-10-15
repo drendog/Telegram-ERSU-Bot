@@ -1,4 +1,4 @@
-package command;
+package commands;
 
 import bot.YmlResolver;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;

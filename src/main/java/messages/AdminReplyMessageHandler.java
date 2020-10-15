@@ -21,7 +21,7 @@ public class AdminReplyMessageHandler implements IMessageHandler {
 
     @Override
     public void handleRequest(AbsSender bot, Update update) {
-        System.out.println("Handling admin reply message");
+        logger.info("Handling admin reply message");
 
         Message adminReplyMessage = update.getMessage();
         Message reportMessage = adminReplyMessage.getReplyToMessage();

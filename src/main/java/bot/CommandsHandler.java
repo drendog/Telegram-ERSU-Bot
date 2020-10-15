@@ -1,6 +1,5 @@
 package bot;
 
-import command.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import commands.*;
 import parser.ParserMenu;
 import service.RegisterID;
 import utils.MenuHelpers;
@@ -31,7 +31,6 @@ public class CommandsHandler extends TelegramLongPollingCommandBot {
         super.register(new MenuCommand()); // 1
         super.register(new UfficioErsuCommand()); // 2
         super.register(new StartCommand()); // 3
-        super.register(new HelpCommand()); // 4
         super.register(new BanCommand()); // 5
         super.register(new UnbanCommand()); // 6
         super.register(new CloseCommand()); // 7
