@@ -1,7 +1,9 @@
 package command;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import bot.YmlResolver;
 import java.util.logging.Level;
@@ -17,9 +19,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import service.RegisterID;
 
 public class ReportCommand extends BotCommand {
+    protected Map<Integer, Integer> reportsMap;
     
     public ReportCommand() {
         super("report", "Segnalazioni");
+
+        reportsMap = new HashMap<>();
     }
     
     @Override
