@@ -27,16 +27,16 @@ public class CommandsHandler extends TelegramLongPollingCommandBot {
 
     public CommandsHandler(String botUsername) {
         super(botUsername);
-        super.register(new ReportCommand()); // 0
-        super.register(new MenuCommand()); // 1
-        super.register(new UfficioErsuCommand()); // 2
-        super.register(new StartCommand()); // 3
-        super.register(new BanCommand()); // 5
-        super.register(new UnbanCommand()); // 6
-        super.register(new CloseCommand()); // 7
-        super.register(new SendErrorCommand()); // 8
-        super.register(new StatsCommand()); // 9
-        commands = super.getRegisteredCommands().stream().collect(Collectors.toList());
+        // super.register(new ReportCommand()); // 0
+        // super.register(new MenuCommand()); // 1
+        // super.register(new UfficioErsuCommand()); // 2
+        // super.register(new StartCommand()); // 3
+        // super.register(new BanCommand()); // 5
+        // super.register(new UnbanCommand()); // 6
+        // super.register(new CloseCommandHandler()); // 7
+        // super.register(new SendErrorCommand()); // 8
+        // super.register(new StatsCommand()); // 9
+        // commands = super.getRegisteredCommands().stream().collect(Collectors.toList());
     }
     
     @Override

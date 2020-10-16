@@ -5,20 +5,21 @@ import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import service.RegisterID;
 import utils.MenuHelpers;
 
-public class UfficioErsuCommand extends BotCommand { 
-    
-    public UfficioErsuCommand() {
-        super("ufficioersu", "Invia i dati dell'ufficio ERSU");
+public class UfficioErsuCommandHandler extends CommandHandler { 
+    public UfficioErsuCommandHandler() {
+        super("ufficioersu");
     }
 
     @Override
-    public void execute(AbsSender as, User user, Chat chat, String[] strings) {
+    public void handleRequest(AbsSender bot, Update update, String[] parameters) {
+        Chat chat = update.getMessage().getChat();
 
         String text = getText();
         SendMessage message = new SendMessage()
@@ -28,9 +29,9 @@ public class UfficioErsuCommand extends BotCommand {
         if (chat.isUserChat()) message.setReplyMarkup(MenuHelpers.generateMainMenuReplyKeyboardMarkup());
         try {
             RegisterID.write(chat.getId().toString());
-            as.execute(message);
+            bot.execute(message);
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(UfficioErsuCommand.class).error("Errore invio comando ufficioersu", ex);
+            org.apache.log4j.Logger.getLogger(UfficioErsuCommandHandler.class).error("Errore invio comando ufficioersu", ex);
         }
     }
 

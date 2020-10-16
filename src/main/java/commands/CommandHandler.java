@@ -16,9 +16,7 @@ public abstract class CommandHandler implements IMessageHandler {
     } 
 
     public boolean shouldHandle(Message message) {
-        String command = message.getText().substring(1);
-        
-        return command.equals(commandKey);
+        return message.getText().matches("/" + commandKey + "(.*)");
     }
 
     public void handleRequest(AbsSender bot, Update update) {

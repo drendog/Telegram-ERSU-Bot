@@ -9,6 +9,7 @@ import bot.YmlResolver;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -17,14 +18,16 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
  *
  * @author Pierpaolo
  */
-public class UnbanCommand extends BotCommand{
-
-    public UnbanCommand() {
-        super("unban", "Serve a togliere il ban ad un utente");
+public class UnbanCommandHandler extends CommandHandler {
+    public UnbanCommandHandler() {
+        super("unban");
     }
 
     @Override
-    public void execute(AbsSender as, User user, Chat chat, String[] strings) {
+    public void handleRequest(AbsSender bot, Update update, String[] parameters) {
+        Chat chat = update.getMessage().getChat();
+        User user = update.getMessage().getFrom();
+
         if  (user.getId().toString().equals(chat.getId().toString())) {
             return; 
         }
@@ -32,15 +35,15 @@ public class UnbanCommand extends BotCommand{
             return;
         }
         
-        if (strings.length == 0) {
-            noParam(as, chat);
+        if (parameters.length == 0) {
+            noParam(bot, chat);
             return;
         }
         Integer id;
         try {
-            id = Integer.parseInt(strings[0]);
+            id = Integer.parseInt(parameters[0]);
         } catch (Exception e) {
-            noParam(as, chat);
+            noParam(bot, chat);
             return;
         }
         
@@ -50,7 +53,7 @@ public class UnbanCommand extends BotCommand{
             text = "Utente {" + id + "} unbannato";
         }
         try {
-            as.execute(new SendMessage()
+            bot.execute(new SendMessage()
                     .setChatId(chat.getId())
                     .setText(text));
 
@@ -67,7 +70,7 @@ public class UnbanCommand extends BotCommand{
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
+            org.apache.log4j.Logger.getLogger(ReportCommandHandler.class).error("Errore invio FAILED segnalazione utente", ex);
         }
     }
 }

@@ -8,9 +8,17 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import commands.BanCommandHandler;
+import commands.CloseCommandHandler;
 import commands.CommandHandler;
 import commands.HelpCommandHandler;
-
+import commands.MenuCommandHandler;
+import commands.ReportCommandHandler;
+import commands.SendErrorCommandHandler;
+import commands.StartCommandHandler;
+import commands.StatsCommandHandler;
+import commands.UfficioErsuCommandHandler;
+import commands.UnbanCommandHandler;
 import messages.IMessageHandler;
 import messages.AdminReplyMessageHandler;
 
@@ -24,7 +32,16 @@ public class Bot extends TelegramLongPollingBot {
 
         messageHandlers.add(new AdminReplyMessageHandler());
 
+        commandHandlers.add(new BanCommandHandler());
+        commandHandlers.add(new CloseCommandHandler());
         commandHandlers.add(new HelpCommandHandler());
+        commandHandlers.add(new MenuCommandHandler());
+        commandHandlers.add(new ReportCommandHandler());
+        commandHandlers.add(new SendErrorCommandHandler());
+        commandHandlers.add(new StartCommandHandler());
+        commandHandlers.add(new StatsCommandHandler());
+        commandHandlers.add(new UfficioErsuCommandHandler());
+        commandHandlers.add(new UnbanCommandHandler());
     }
 
     @Override

@@ -47,7 +47,7 @@ public class BanCommandHandler extends CommandHandler {
             text = "Utente {" + id + "} bannato";
         }
         try {
-            as.execute(new SendMessage()
+            bot.execute(new SendMessage()
                     .setChatId(chat.getId())
                     .setText(text));
 
@@ -65,7 +65,7 @@ public class BanCommandHandler extends CommandHandler {
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
+            org.apache.log4j.Logger.getLogger(ReportCommandHandler.class).error("Errore invio FAILED segnalazione utente", ex);
         }
     }
 }

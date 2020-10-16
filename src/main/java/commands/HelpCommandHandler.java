@@ -32,7 +32,7 @@ public class HelpCommandHandler extends CommandHandler {
         try {
             bot.execute(message);
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(MenuCommand.class).error("Errore invio comando menu", ex);
+            org.apache.log4j.Logger.getLogger(MenuCommandHandler.class).error("Errore invio comando menu", ex);
         }
     }
 }
