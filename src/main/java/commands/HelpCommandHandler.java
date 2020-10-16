@@ -1,5 +1,7 @@
 package commands;
 
+import java.io.File;
+
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -10,6 +12,7 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import service.RegisterID;
 import utils.MenuHelpers;
+import utils.ResourcesHelpers;
 
 public class HelpCommandHandler extends CommandHandler {
     public HelpCommandHandler() {
@@ -20,10 +23,7 @@ public class HelpCommandHandler extends CommandHandler {
     public void handleRequest(AbsSender bot, Update update, String[] parameters) {
         Chat chat = update.getMessage().getChat();
 
-        String text = "<b>Telegram ERSU Bot</b>\n\n" + "🍽 /menu Fornisce il menù per il prossimo pasto Mensa;\n\n"
-                + "📚 /ufficioersu Fornisce informazioni sugli uffici ERSU Catania;\n\n"
-                + "📬 /report Fornisce la possibilità di poter inviare una segnalazione ai "
-                + "Rappresentanti ERSU, riguardante qualsiasi disservizio, informazione, dubbi e domande.";
+        String text = ResourcesHelpers.loadTextReply("help");
 
         SendMessage message = new SendMessage().setChatId(chat.getId().toString()).enableHtml(true).setText(text);
         RegisterID.write(chat.getId().toString());

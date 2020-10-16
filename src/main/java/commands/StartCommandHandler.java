@@ -10,6 +10,7 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import service.RegisterID;
 import utils.MenuHelpers;
+import utils.ResourcesHelpers;
 
 public class StartCommandHandler extends CommandHandler { 
     public StartCommandHandler() {
@@ -20,16 +21,22 @@ public class StartCommandHandler extends CommandHandler {
     public void handleRequest(AbsSender bot, Update update, String[] parameters) {
         Chat chat = update.getMessage().getChat();
 
-        String text = "Benvenuto! Questo bot è stato realizzato dagli studenti del Corso di Laurea"+ 
-                    " in Informatica al fine di fornire uno strumento di supporto per chi"+
-                    " usufruisce dei servizi ERSU. Per scoprire cosa puoi"+ 
-                    " fare usa /help";
+        System.out.println("Loading text...");
+
+        String text = ResourcesHelpers.loadTextReply("start");
+
+        System.out.println(text);
+
         SendMessage message = new SendMessage()
                         .setChatId(chat.getId().toString())
                         .setParseMode(ParseMode.HTML)
                         .setText(text);
-        if (chat.isUserChat()) message.setReplyMarkup(MenuHelpers.generateMainMenuReplyKeyboardMarkup());
+
+        if (chat.isUserChat())
+            message.setReplyMarkup(MenuHelpers.generateMainMenuReplyKeyboardMarkup());
+
         RegisterID.write(chat.getId().toString());
+
         try {
             RegisterID.write(chat.getId().toString());
             bot.execute(message);
