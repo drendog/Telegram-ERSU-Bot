@@ -76,7 +76,7 @@ public class ReportCommandHandler extends CommandHandler {
         RegisterID.write(chat.getId().toString());
 
         if (!usernameFlag)
-            userChat.setText("La tua segnalazione è stata inviata, ma non sarà possibile ricontattarti perché non hai un nickname."); 
+            userChat.setText("La tua segnalazione è stata inviata, ma non sarà possibile ricontattarti direttamente perché non hai un nickname. Il bot provvederà ad inoltrati le risposte dei rappresentanti."); 
 
         try {
             bot.execute(userChat);
