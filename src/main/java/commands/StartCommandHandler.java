@@ -21,8 +21,6 @@ public class StartCommandHandler extends CommandHandler {
     public void handleRequest(AbsSender bot, Update update, String[] parameters) {
         Chat chat = update.getMessage().getChat();
 
-        System.out.println("Loading text...");
-
         String text = ResourcesHelpers.loadTextReply("start");
 
         System.out.println(text);

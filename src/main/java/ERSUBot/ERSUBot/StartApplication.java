@@ -4,7 +4,6 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import bot.CommandsHandler;
 import bot.Bot;
 import bot.YmlResolver;
 import java.util.Calendar;

@@ -20,6 +20,8 @@ import commands.StatsCommandHandler;
 import commands.UfficioErsuCommandHandler;
 import commands.UnbanCommandHandler;
 import messages.IMessageHandler;
+import messages.KeyboardCommandHandler;
+import utils.ResourcesHelpers;
 import messages.AdminReplyMessageHandler;
 
 public class Bot extends TelegramLongPollingBot {
@@ -31,6 +33,10 @@ public class Bot extends TelegramLongPollingBot {
         commandHandlers = new ArrayList<>();
 
         messageHandlers.add(new AdminReplyMessageHandler());
+        messageHandlers.add(new KeyboardCommandHandler("Contatti ERSU 📚", ResourcesHelpers.loadTextReply("ufficioersu")));
+        messageHandlers.add(new KeyboardCommandHandler("Help ❔", ResourcesHelpers.loadTextReply("help")));
+        messageHandlers.add(new KeyboardCommandHandler("Segnalazioni Rappresentanti 📬", ResourcesHelpers.loadTextReply("segnalazioni_rappresentanti")));
+        messageHandlers.add(new KeyboardCommandHandler("Menù mensa 🍽", ResourcesHelpers.loadTextReply("menu_mensa_disabled")));
 
         commandHandlers.add(new BanCommandHandler());
         commandHandlers.add(new CloseCommandHandler());
