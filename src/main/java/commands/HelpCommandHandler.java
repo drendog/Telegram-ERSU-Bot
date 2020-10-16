@@ -17,7 +17,7 @@ public class HelpCommandHandler extends CommandHandler {
     }
 
     @Override
-    public void handleRequest(AbsSender bot, Update update) {
+    public void handleRequest(AbsSender bot, Update update, String[] parameters) {
         Chat chat = update.getMessage().getChat();
 
         String text = "<b>Telegram ERSU Bot</b>\n\n" + "🍽 /menu Fornisce il menù per il prossimo pasto Mensa;\n\n"
