@@ -21,19 +21,22 @@ public class StartApplication {
     public static void main(String[] args) {
 
         ApiContextInitializer.init();
-        PropertyConfigurator.configure(YmlResolver.getInstance().getValue("log4j.properties"));
+        PropertyConfigurator.configure(YmlResolver.getInstance().getValue("log4j_properties"));
         
         Logger.getLogger(StartApplication.class).info("Start Application");
         
         TelegramBotsApi botsApi = new TelegramBotsApi();
         
         new Timer().scheduleAtFixedRate(MenuDownloader.getDownloader(), 0, TimeUnit.HOURS.toMillis(1)); // Job Downloader Menù
-        Bot b = new Bot(YmlResolver.getInstance().getValue("BotUsername"));
+
+        Bot bot = new Bot();
+
         try {
-            botsApi.registerBot(b);
-            new Timer().scheduleAtFixedRate(new Scraper(b), 0, 1000*60); // Job Scraping News
-            new Timer().scheduleAtFixedRate(new JobMensa(b), JobMensa.getAM(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
-            new Timer().scheduleAtFixedRate(new JobMensa(b), JobMensa.getPM(), TimeUnit.DAYS.toMillis(1)); // Ore 18:45
+            botsApi.registerBot(bot);
+
+            new Timer().scheduleAtFixedRate(new Scraper(bot), 0, 1000*60); // Job Scraping News
+            new Timer().scheduleAtFixedRate(new JobMensa(bot), JobMensa.getAM(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
+            new Timer().scheduleAtFixedRate(new JobMensa(bot), JobMensa.getPM(), TimeUnit.DAYS.toMillis(1)); // Ore 18:45
             
         } catch (TelegramApiException e) {
             Logger.getLogger(StartApplication.class).error(e);

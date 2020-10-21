@@ -1,4 +1,4 @@
-package command;
+package commands;
 
 import bot.YmlResolver;
 import java.util.List;
@@ -6,18 +6,22 @@ import java.util.Optional;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class BanCommand extends BotCommand {
+public class BanCommandHandler extends CommandHandler {
 
-    public BanCommand() {
-        super("ban", "Ban comando report");
+    public BanCommandHandler() {
+        super("ban");
     }
     
     @Override
-    public void execute(AbsSender as, User user, Chat chat, String[] strings) {
+    public void handleRequest(AbsSender bot, Update update, String[] parameters) {
+        User user = update.getMessage().getFrom();
+        Chat chat = update.getMessage().getChat();
+
         if  (user.getId().toString().equals(chat.getId().toString())) {
             return; 
         }
@@ -25,15 +29,15 @@ public class BanCommand extends BotCommand {
             return;
         }
         
-        if (strings.length == 0) {
-            noParam(as, chat);
+        if (parameters.length == 0) {
+            noParam(bot, chat);
             return;
         }
         Long id;
         try {
-            id = Long.parseLong(strings[0]);
+            id = Long.parseLong(parameters[0]);
         } catch (Exception e) {
-            noParam(as, chat);
+            noParam(bot, chat);
             return;
         }
         
@@ -43,7 +47,7 @@ public class BanCommand extends BotCommand {
             text = "Utente {" + id + "} bannato";
         }
         try {
-            as.execute(new SendMessage()
+            bot.execute(new SendMessage()
                     .setChatId(chat.getId())
                     .setText(text));
 
@@ -61,7 +65,7 @@ public class BanCommand extends BotCommand {
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
+            org.apache.log4j.Logger.getLogger(ReportCommandHandler.class).error("Errore invio FAILED segnalazione utente", ex);
         }
     }
 }

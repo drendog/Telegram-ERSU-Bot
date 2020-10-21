@@ -1,35 +1,48 @@
-package command;
+package commands;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import bot.YmlResolver;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import service.RegisterID;
+import service.ReportsRegistry;
 
-public class ReportCommand extends BotCommand {
-    
-    public ReportCommand() {
-        super("report", "Segnalazioni");
+public class ReportCommandHandler extends CommandHandler {
+    public ReportCommandHandler() {
+        super("report");
     }
     
     @Override
-    public void execute(AbsSender as, User user, Chat chat, String[] strings) {
+    public void handleRequest(AbsSender bot, Update update, String[] parameters) {
+        User user = update.getMessage().getFrom();
+        Chat chat = update.getMessage().getChat();
+
         if (FileBanner.isPresent(user.getId().toString())) {
-            youBanned(as,chat);
+            youBanned(bot, chat);
             return; 
         }
-        if (strings.length == 0)  {
-            noParam(as,chat);
+        if (parameters.length == 0)  {
+            noParam(bot, chat);
             return; 
         }
         
         String buildStr = new String(); 
-        for (String str : strings) {
+        for (String str : parameters) {
             buildStr += str + " ";
         }
         boolean usernameFlag = true; // Ha il nickname
@@ -47,22 +60,28 @@ public class ReportCommand extends BotCommand {
         SendMessage adminChat = new SendMessage()
                 .setChatId(YmlResolver.getInstance().getValue("admin_chat"))
                 .setText(msgBuilder.toString());
+                
         try {
-            as.execute(adminChat);
+            Message reportAdminMessage = bot.execute(adminChat);
+
+            ReportsRegistry.getInstance().registerReport(reportAdminMessage.getMessageId(), chat.getId());
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio segnalazione admin chat", ex);
+            org.apache.log4j.Logger.getLogger(ReportCommandHandler.class).error("Errore invio segnalazione admin chat", ex);
         }
+
         SendMessage userChat = 
                 new SendMessage()
                 .setChatId(chat.getId().toString())
                 .setText("La tua segnalazione è stata inviata, uno dei rappresentanti ti risponderà appena possibile");
         RegisterID.write(chat.getId().toString());
+
         if (!usernameFlag)
-            userChat.setText("La tua segnalazione è stata inviata, ma non sarà possibile ricontattarti perché non hai un nickname."); 
+            userChat.setText("La tua segnalazione è stata inviata, ma non sarà possibile ricontattarti direttamente perché non hai un nickname. Il bot provvederà ad inoltrati le risposte dei rappresentanti."); 
+
         try {
-            as.execute(userChat);
+            bot.execute(userChat);
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio OK segnalazione utente", ex);
+            org.apache.log4j.Logger.getLogger(ReportCommandHandler.class).error("Errore invio OK segnalazione utente", ex);
         }
     }
     
@@ -74,7 +93,7 @@ public class ReportCommand extends BotCommand {
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
+            org.apache.log4j.Logger.getLogger(ReportCommandHandler.class).error("Errore invio FAILED segnalazione utente", ex);
         }        
     }
     private void youBanned(AbsSender as, Chat chat) {
@@ -84,7 +103,7 @@ public class ReportCommand extends BotCommand {
         try {
             as.execute(message);
         } catch (TelegramApiException ex) {
-            org.apache.log4j.Logger.getLogger(ReportCommand.class).error("Errore invio FAILED segnalazione utente", ex);
+            org.apache.log4j.Logger.getLogger(ReportCommandHandler.class).error("Errore invio FAILED segnalazione utente", ex);
         }        
     }
 }
