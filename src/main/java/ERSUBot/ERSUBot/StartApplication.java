@@ -27,7 +27,7 @@ public class StartApplication {
         
         TelegramBotsApi botsApi = new TelegramBotsApi();
         
-        new Timer().scheduleAtFixedRate(MenuDownloader.getDownloader(), 0, TimeUnit.HOURS.toMillis(1)); // Job Downloader Menù
+        // new Timer().scheduleAtFixedRate(MenuDownloader.getDownloader(), 0, TimeUnit.HOURS.toMillis(1)); // Job Downloader Menù
 
         Bot bot = new Bot();
 
@@ -35,8 +35,8 @@ public class StartApplication {
             botsApi.registerBot(bot);
 
             new Timer().scheduleAtFixedRate(new Scraper(bot), 0, 1000*60); // Job Scraping News
-            new Timer().scheduleAtFixedRate(new JobMensa(bot), JobMensa.getAM(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
-            new Timer().scheduleAtFixedRate(new JobMensa(bot), JobMensa.getPM(), TimeUnit.DAYS.toMillis(1)); // Ore 18:45
+            // new Timer().scheduleAtFixedRate(new JobMensa(bot), JobMensa.getAM(), TimeUnit.DAYS.toMillis(1)); // Ore 11:45
+            // new Timer().scheduleAtFixedRate(new JobMensa(bot), JobMensa.getPM(), TimeUnit.DAYS.toMillis(1)); // Ore 18:45
             
         } catch (TelegramApiException e) {
             Logger.getLogger(StartApplication.class).error(e);

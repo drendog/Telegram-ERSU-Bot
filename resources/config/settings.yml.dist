@@ -6,7 +6,7 @@ admin_chat: ''
 mensa_channel: '@channelusername'
 news_channel: '@channelnews'
 
-url_ersu: 'http://www.ersucatania.gov.it/blog/'
+url_ersu: 'https://www.ersucatania.it/news/'
 
 path_avvisi: "../resources/data/avvisi.txt"
 path_mensa: "../resources/data/menu.pdf"
