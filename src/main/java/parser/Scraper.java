@@ -30,7 +30,7 @@ public class Scraper extends TimerTask {
             org.apache.log4j.Logger.getLogger(Scraper.class).error("Connessione host ERSU non riuscita", ex);
         }
         final String content = FileManager.read(); // Deve 
-        Elements elements = doc.getElementsByClass("half");
+        Elements elements = doc.getElementsByTag("Article");
         for (Element e1 : elements) {
             String link = e1.child(0).attributes().get("href");
             if (!content.contains(link)) {
